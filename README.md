@@ -1,8 +1,6 @@
 # Cloudinary Plugin
 
-**This README.md file should be modified to describe the features, installation, configuration, and general usage of this plugin.**
-
-The **Cloudinary** Plugin is for [Grav CMS](http://github.com/getgrav/grav). Cloudinary assets integration for Grav.
+The **Cloudinary** Plugin is for [Grav CMS](http://github.com/getgrav/grav). It provides integration of Cloudinary assets (videos and images).
 
 ## Installation
 
@@ -23,7 +21,7 @@ To install this plugin, just download the zip version of this repository and unz
 You should now have all the plugin files under
 
     /your/site/grav/user/plugins/cloudinary
-	
+
 > NOTE: This plugin is a modular component for Grav which requires [Grav](http://github.com/getgrav/grav) and the [Error](https://github.com/getgrav/grav-plugin-error) and [Problems](https://github.com/getgrav/grav-plugin-problems) to operate.
 
 ### Admin Plugin
@@ -42,15 +40,11 @@ enabled: true
 
 Note that if you use the admin plugin, a file with your configuration, and named cloudinary.yaml will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin.
 
-## Usage
+## Goals
+This plugin shall make possible:
+1. attaching Cloudinary files to Grav pages like other media, probably via a cloudinary.yaml file in the page directory.
+2. editing this file via the Grav Admin plugin.
+3. uploading files to Cloudinary (maybe also deleting), also via Grav Admin.
 
-**Describe how to use the plugin.**
-
-## Credits
-
-**Did you incorporate third-party code? Want to thank somebody?**
-
-## To Do
-
-- [ ] Future plans, if any
-
+## Future plans
+The Cloudinary files shall first only be usable in Twig templates (because that's where I need them right now), I may think about Markdown uses later. Support for the admin plugin may also take a back seat.
