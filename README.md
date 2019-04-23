@@ -1,6 +1,8 @@
 # Cloudinary Plugin
 
-The **Cloudinary** Plugin is for [Grav CMS](http://github.com/getgrav/grav). It provides integration of Cloudinary assets (videos and images).
+The **Cloudinary** Plugin is for [Grav CMS](http://github.com/getgrav/grav). [Cloudinary]/(https://cloudinary.com/) is an asset management and delivery service for images and videos, providing on the fly transformation and many other useful options. This plugin currently lets you build listing pages of videos with linked thumbnails and single pages that display the actual video. See below for future plans.
+
+You need a Cloudinary account to use this plugin! There is a [free tier with generous limitations](https://cloudinary.com/pricing) available.
 
 ## Installation
 
@@ -36,15 +38,45 @@ Here is the default configuration and an explanation of available options:
 
 ```yaml
 enabled: true
+cloud_name: your_cloud_name
+key: your_key
+secret: your_secret
+options:
+    video:
+        listing:
+            format: jpg
+            width: 800
+        single:
+            controls: true
+            width: 800
 ```
+These are just example settings. Your cloud name is required to find actual files to display, key and secret are not in use yet (will be needed for uploads). You can set any option needed for your listing pages as well as for single pages with a video, Cloudinary has [an extensive list of available options](https://cloudinary.com/documentation/video_manipulation_and_delivery). Just list them under `listing` or `single` as required, with proper indentation.
 
 Note that if you use the admin plugin, a file with your configuration, and named cloudinary.yaml will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin.
 
-## Goals
-This plugin shall make possible:
-1. attaching Cloudinary files to Grav pages like other media, probably via a cloudinary.yaml file in the page directory.
-2. editing this file via the Grav Admin plugin.
-3. uploading files to Cloudinary (maybe also deleting), also via Grav Admin.
+## Templates
+
+Please also copy the templates from `user/plugins/cloudinary/templates` to the `templates` folder of your preferred theme, and adapt them as needed.
+
+To add a new page that displays thumbnails with links to their respective video pages, add a page with the `listing-video.html.twig` template, then add child pages to that with the `video.html.twig` template and a `header` entry like this:
+
+```yaml
+title: 'Title of your video'
+public_id: video_public_id
+```
+
+You can find and change an asset's public id in the media library of your Cloudinary account.
+
+## Language settings
+
+If you want to change the text that will appear in the alt tag of the thumbnails on listing pages, copy the language contents of `user/plugins/cloudinary/languages.yaml` that you wish to change to `user/languages/en.yaml` or another language file respectively, and change that so your custom text will not get overridden when the plugin is updated.
 
 ## Future plans
-The Cloudinary files shall first only be usable in Twig templates (because that's where I need them right now), I may think about Markdown uses later. Support for the admin plugin may also take a back seat.
+At the moment you need to upload and manage files directly in your Cloudinary account, and you can only output videos and lists of videos in the way outlined above. I would like to, roughly listed by priority:
+
+- test whether the plugin clashes with responsive image plugins or the like
+- add management options, especially uploading, via Grav Admin plugin
+- add support for images
+- maybe add support for Markdown tags
+
+Let me know if you have suggestions for improvement!

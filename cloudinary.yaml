@@ -1,9 +1,12 @@
 enabled: true
-cloud_name: netzhexe
+cloud_name: your_cloud_name
+key: your_key
+secret: your_secret
 options:
     video:
         listing:
             format: jpg
+            width: 800
         single:
             controls: true
             width: 800

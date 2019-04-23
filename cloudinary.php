@@ -44,9 +44,9 @@ class CloudinaryPlugin extends Plugin
     public function onTwigSiteVariables()
     {
         \Cloudinary::config(array(
-          "cloud_name" => "netzhexe",
-          "api_key" => "my_key",
-          "api_secret" => "my_secret"
+          "cloud_name" => $this->config->get('plugins.cloudinary.cloud_name'),
+          "api_key" => $this->config->get('plugins.cloudinary.key'),
+          "api_secret" => $this->config->get('plugins.cloudinary.secret')
         ));
         // version: cloudinary tag in header of page
         /*if (property_exists($this->grav['page']->header(),'cloudinary')) {
@@ -56,33 +56,31 @@ class CloudinaryPlugin extends Plugin
               "title"     => $arrVid["title"],
               "url"       => cloudinary_url($pid, $options)
             );
-          }*/
-          // listing page for videos of child pages
-          $children = $this->grav['page']->children();
-          if (count($children)) {
-            $arrThumbs = array();
-            //$options = array();
-            $options = $this->config->get('plugins.cloudinary.options.video.listing');
-            $options['resource_type'] = 'video';
-            foreach($children as $child) {
-              $arrThumbs[$child->header()->public_id] = array(
-                "public_id" => $child->header()->public_id,
-                "title"     => $child->header()->title,
-                "url"       => $child->url(),
-                "url_img"   => cloudinary_url($child->header()->public_id, $options)
-              );
-            }
-            $this->config->set('plugins.cloudinary.list', $arrThumbs);
-          }
+          }}*/
 
-          // single page with video
-          if (property_exists($this->grav['page']->header(), 'public_id')) {
-            //$options = array("controls" => true, "width" => 800);
-            $options = $this->config->get('plugins.cloudinary.options.video.single');
-            $this->config->set('plugins.cloudinary.video', cl_video_tag($this->grav['page']->header()->public_id, $options));
+        // listing page for videos of child pages
+        $children = $this->grav['page']->children();
+        if (count($children)) {
+          $arrThumbs = array();
+          //$options = array();
+          $options = $this->config->get('plugins.cloudinary.options.video.listing');
+          $options['resource_type'] = 'video';
+          foreach($children as $child) {
+            $arrThumbs[$child->header()->public_id] = array(
+              "public_id" => $child->header()->public_id,
+              "title"     => $child->header()->title,
+              "url"       => $child->url(),
+              "url_img"   => cloudinary_url($child->header()->public_id, $options)
+            );
           }
-          //Pass the array to the templates
-          //$this->config->set('plugins.cloudinary.list', $test);
-      //}
+          $this->config->set('plugins.cloudinary.list', $arrThumbs);
+        }
+
+        // single page with video
+        if (property_exists($this->grav['page']->header(), 'public_id')) {
+          //$options = array("controls" => true, "width" => 800);
+          $options = $this->config->get('plugins.cloudinary.options.video.single');
+          $this->config->set('plugins.cloudinary.video', cl_video_tag($this->grav['page']->header()->public_id, $options));
+        }
     }
 }
