@@ -2,12 +2,15 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
+use Grav\Common\Page\Header;
 use RocketTheme\Toolbox\Event\Event;
+//use Cloudinary;
 
 /**
  * Class CloudinaryPlugin
  * @package Grav\Plugin
  */
+
 class CloudinaryPlugin extends Plugin
 {
     /**
@@ -22,42 +25,43 @@ class CloudinaryPlugin extends Plugin
      */
     public static function getSubscribedEvents()
     {
-        return [
-            'onPluginsInitialized' => ['onPluginsInitialized', 0]
-        ];
+      require_once(__DIR__.'/vendor/autoload.php');
+      //require_once(__DIR__.'/vendor/cloudinary_php/autoload.php');
+
+      return [
+          'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
+          'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0]
+      ];
     }
 
-    /**
-     * Initialize the plugin
-     */
-    public function onPluginsInitialized()
+    // found that in Blogroll plugin: https://github.com/Perlkonig/grav-plugin-blogroll/blob/master/blogroll.php
+    public function onTwigTemplatePaths()
     {
-        // Don't proceed if we are in the admin plugin
-        if ($this->isAdmin()) {
-            return;
-        }
-
-        // Enable the main event we are interested in
-        $this->enable([
-            'onPageContentRaw' => ['onPageContentRaw', 0]
-        ]);
+        //Load the built-in twig unless overridden
+        $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
     }
 
-    /**
-     * Do some work for this event, full details of events can be found
-     * on the learn site: http://learn.getgrav.org/plugins/event-hooks
-     *
-     * @param Event $e
-     */
-    public function onPageContentRaw(Event $e)
+    // from Blogroll as well
+    public function onTwigSiteVariables()
     {
-        // Get a variable from the plugin configuration
-        $text = $this->grav['config']->get('plugins.cloudinary.text_var');
-
-        // Get the current raw content
-        $content = $e['page']->getRawContent();
-
-        // Prepend the output with the custom text and set back on the page
-        $e['page']->setRawContent($text . "\n\n" . $content);
+        \Cloudinary::config(array(
+          "cloud_name" => "netzhexe",
+          "api_key" => "my_key",
+          "api_secret" => "my_secret"
+        ));
+        $arrThumbs = array();
+        $options = array('resource_type' => 'video', "format"=>"jpg");
+        if (property_exists($this->grav['page']->header(),'cloudinary')) {
+          foreach($this->grav['page']->header()->cloudinary as $pid => $arrVid) {
+            $arrThumbs[$pid] = array(
+              "public_id" => $arrVid["public_id"],
+              "title"     => $arrVid["title"],
+              "url"       => cloudinary_url($pid, $options)
+            );
+          }
+          //Pass the array to the templates
+          $this->config->set('plugins.cloudinary.list', $arrThumbs);
+          //$this->config->set('plugins.cloudinary.list', $test);
+      }
     }
 }

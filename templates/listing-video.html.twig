@@ -1,0 +1,12 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+    {{ page.content }}
+    <div class="grid">
+    {{ dump(config.plugins.cloudinary.list) }}
+    {#{ dump(page.header.cloudinary) }#}
+    {% for v in config.plugins.cloudinary.list %}
+    <p><img src="{{ v.url }}" alt="Vorschaubild {{ v.title }}">{{ v.title }}</p>
+    {% endfor %}
+    </div>
+{% endblock %}
