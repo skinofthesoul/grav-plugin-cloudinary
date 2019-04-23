@@ -2,9 +2,8 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
-use Grav\Common\Page\Header;
+//use Grav\Common\Page\Header;
 use RocketTheme\Toolbox\Event\Event;
-//use Cloudinary;
 
 /**
  * Class CloudinaryPlugin
@@ -49,19 +48,41 @@ class CloudinaryPlugin extends Plugin
           "api_key" => "my_key",
           "api_secret" => "my_secret"
         ));
-        $arrThumbs = array();
-        $options = array('resource_type' => 'video', "format"=>"jpg");
-        if (property_exists($this->grav['page']->header(),'cloudinary')) {
+        // version: cloudinary tag in header of page
+        /*if (property_exists($this->grav['page']->header(),'cloudinary')) {
           foreach($this->grav['page']->header()->cloudinary as $pid => $arrVid) {
             $arrThumbs[$pid] = array(
               "public_id" => $arrVid["public_id"],
               "title"     => $arrVid["title"],
               "url"       => cloudinary_url($pid, $options)
             );
+          }*/
+          // listing page for videos of child pages
+          $children = $this->grav['page']->children();
+          if (count($children)) {
+            $arrThumbs = array();
+            //$options = array();
+            $options = $this->config->get('plugins.cloudinary.options.video.listing');
+            $options['resource_type'] = 'video';
+            foreach($children as $child) {
+              $arrThumbs[$child->header()->public_id] = array(
+                "public_id" => $child->header()->public_id,
+                "title"     => $child->header()->title,
+                "url"       => $child->url(),
+                "url_img"   => cloudinary_url($child->header()->public_id, $options)
+              );
+            }
+            $this->config->set('plugins.cloudinary.list', $arrThumbs);
+          }
+
+          // single page with video
+          if (property_exists($this->grav['page']->header(), 'public_id')) {
+            //$options = array("controls" => true, "width" => 800);
+            $options = $this->config->get('plugins.cloudinary.options.video.single');
+            $this->config->set('plugins.cloudinary.video', cl_video_tag($this->grav['page']->header()->public_id, $options));
           }
           //Pass the array to the templates
-          $this->config->set('plugins.cloudinary.list', $arrThumbs);
           //$this->config->set('plugins.cloudinary.list', $test);
-      }
+      //}
     }
 }

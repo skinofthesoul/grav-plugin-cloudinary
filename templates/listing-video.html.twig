@@ -2,11 +2,10 @@
 
 {% block content %}
     {{ page.content }}
+    {#{ dump(config.plugins.cloudinary.list) }#}
     <div class="grid">
-    {{ dump(config.plugins.cloudinary.list) }}
-    {#{ dump(page.header.cloudinary) }#}
     {% for v in config.plugins.cloudinary.list %}
-    <p><img src="{{ v.url }}" alt="Vorschaubild {{ v.title }}">{{ v.title }}</p>
+    <a href="{{ v.url }}"><img src="{{ v.url_img }}" alt="Vorschaubild {{ v.title }}">{{ v.title }}</a>
     {% endfor %}
     </div>
 {% endblock %}
