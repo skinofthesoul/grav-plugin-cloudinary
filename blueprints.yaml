@@ -1,5 +1,5 @@
 name: Cloudinary
-version: 0.1.0
+version: 1.0.0
 description: Cloudinary service integration for Grav.
 icon: plug
 author:
@@ -24,7 +24,12 @@ form:
         0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
-    text_var:
+    cloud_name:
       type: text
-      label: PLUGIN_CLOUDINARY.TEXT_VARIABLE
-      help: PLUGIN_CLOUDINARY.TEXT_VARIABLE_HELP
+      label: PLUGIN_CLOUDINARY.CLOUD_NAME
+    key:
+      type: text
+      label: PLUGIN_CLOUDINARY.KEY
+    secret:
+      type: text
+      label: PLUGIN_CLOUDINARY.SECRET

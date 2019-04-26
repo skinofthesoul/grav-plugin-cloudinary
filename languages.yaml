@@ -1,7 +1,13 @@
 en:
   PLUGIN_CLOUDINARY:
     ALT_PREFIX: 'preview of'
+    CLOUD_NAME: 'Your cloud name'
+    KEY: 'Your key'
+    SECRET: 'Your secret'
 
 de:
   PLUGIN_CLOUDINARY:
     ALT_PREFIX: 'Vorschaubild von'
+    CLOUD_NAME: 'Ihr Cloudname'
+    KEY: 'Ihr Cloudinary-Schlüssel (key)'
+    SECRET: 'Ihr Cloudinary-Geheimnis (secret)'

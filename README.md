@@ -52,17 +52,22 @@ options:
 ```
 These are just example settings. Your cloud name is required to find actual files to display, key and secret are not in use yet (will be needed for uploads). You can set any option needed for your listing pages as well as for single pages with a video, Cloudinary has [an extensive list of available options](https://cloudinary.com/documentation/video_manipulation_and_delivery). Just list them under `listing` or `single` as required, with proper indentation.
 
-Note that if you use the admin plugin, a file with your configuration, and named cloudinary.yaml will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin.
+Note that if you use the admin plugin, a file with your configuration, and named cloudinary.yaml will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin. Format options are not yet supported via Admin.
 
 ## Templates
 
 Please also copy the templates from `user/plugins/cloudinary/templates` to the `templates` folder of your preferred theme, and adapt them as needed.
 
-To add a new page that displays thumbnails with links to their respective video pages, add a page with the `listing-video.html.twig` template, then add child pages to that with the `video.html.twig` template and a `header` entry like this:
+To add a new page that displays a thumbnail gallery of either videos or images:
+1. Add a page with the `cloudinary-gallery.html.twig` template.
+2. Put `gallery_type: video` or `gallery_type: image` in that page's header, depending on what you want displayed on that page.
+3. Add child pages to the gallery page that use the `cloudinary-single.html.twig` template.
+4. Set the child pages' `header` entries like this:
 
 ```yaml
-title: 'Title of your video'
-public_id: video_public_id
+title: 'Title of your video/image'
+public_id: cloudinary_public_id
+type: video/image
 ```
 
 You can find and change an asset's public id in the media library of your Cloudinary account.
@@ -75,8 +80,10 @@ If you want to change the text that will appear in the alt tag of the thumbnails
 At the moment you need to upload and manage files directly in your Cloudinary account, and you can only output videos and lists of videos in the way outlined above. I would like to, roughly listed by priority:
 
 - test whether the plugin clashes with responsive image plugins or the like
+- add format options fields to Admin
 - add management options, especially uploading, via Grav Admin plugin
 - add support for images
-- maybe add support for Markdown tags
+- add support for subfolders in Cloudinary
+- maybe add support for Markdown shortcodes
 
 Let me know if you have suggestions for improvement!
