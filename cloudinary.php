@@ -2,7 +2,6 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
-//use Grav\Common\Page\Header;
 use RocketTheme\Toolbox\Event\Event;
 
 /**
@@ -28,9 +27,39 @@ class CloudinaryPlugin extends Plugin
       //require_once(__DIR__.'/vendor/cloudinary_php/autoload.php');
 
       return [
-          'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
-          'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0]
+          'onTwigSiteVariables'      => ['onTwigSiteVariables', 0],
+          'onTwigTemplatePaths'      => ['onTwigTemplatePaths', 0],
+          //'onAdminTwigTemplatePaths' => ['onAdminTwigTemplatePaths', 0]
       ];
+    }
+
+    /**
+     * Initialize the plugin
+     */
+    public function onPluginsInitialized()
+    {
+      // If in an Admin page.
+      if ($this->isAdmin()) {
+          $this->enable([
+              'onGetPageTemplates' => ['onGetPageTemplates', 0]
+          ]);
+          return;
+          // If not in an Admin page.
+          $this->enable([
+              'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0]
+          ]);
+      }
+    }
+
+    /**
+     * Add blueprint directory to page templates.
+     */
+    public function onGetPageTemplates(Event $event)
+    {
+        $types = $event->types;
+        $locator = Grav::instance()['locator'];
+        $types->scanBlueprints($locator->findResource('plugin://' . $this->name . '/blueprints'));
+        $types->scanTemplates($locator->findResource('plugin://' . $this->name . '/templates'));
     }
 
     // found that in Blogroll plugin: https://github.com/Perlkonig/grav-plugin-blogroll/blob/master/blogroll.php
