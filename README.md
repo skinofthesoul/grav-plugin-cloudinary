@@ -67,7 +67,7 @@ To add a new page that displays a thumbnail gallery of either videos or images:
 ```yaml
 title: 'Title of your video/image'
 public_id: cloudinary_public_id
-type: video/image
+type: video|image
 ```
 
 You can find and change an asset's public id in the media library of your Cloudinary account.
@@ -79,11 +79,13 @@ If you want to change the text that will appear in the alt tag of the thumbnails
 ## Future plans
 At the moment you need to upload and manage files directly in your Cloudinary account, and you can only output videos and lists of videos in the way outlined above. I would like to, roughly listed by priority:
 
-- test whether the plugin clashes with responsive image plugins or the like
-- add format options fields to Admin
-- add management options, especially uploading, via Grav Admin plugin
-- add support for images
-- add support for subfolders in Cloudinary
-- maybe add support for Markdown shortcodes
+- [ ] add management options, especially uploading, via Grav Admin plugin
+- [ ] add format options fields to Admin
+- [ ] add support for Cloudinary's adaptive streaming profiles
+- [ ] add support for images
+- [ ] add support for Markdown shortcodes
+- [ ] add srcset options based on image classes
+- [ ] test whether the plugin clashes with responsive image plugins or the like
+- [ ] add support for subfolders in Cloudinary
 
 Let me know if you have suggestions for improvement!

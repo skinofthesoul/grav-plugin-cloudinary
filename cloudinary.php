@@ -2,6 +2,9 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
+use Grav\Common\Grav;
+use Grav\Common\Page\Page;
+use Grav\Common\Page\Pages;
 use RocketTheme\Toolbox\Event\Event;
 
 /**
@@ -29,6 +32,7 @@ class CloudinaryPlugin extends Plugin
       return [
           'onTwigSiteVariables'      => ['onTwigSiteVariables', 0],
           'onTwigTemplatePaths'      => ['onTwigTemplatePaths', 0],
+          //'onGetPageTemplates'       => ['onGetPageTemplates', 0]
           //'onAdminTwigTemplatePaths' => ['onAdminTwigTemplatePaths', 0]
       ];
     }
@@ -77,7 +81,7 @@ class CloudinaryPlugin extends Plugin
           "api_key" => $this->config->get('plugins.cloudinary.key'),
           "api_secret" => $this->config->get('plugins.cloudinary.secret')
         ));
-        // version: cloudinary tag in header of page
+        // old version: cloudinary tag in header of page
         /*if (property_exists($this->grav['page']->header(),'cloudinary')) {
           foreach($this->grav['page']->header()->cloudinary as $pid => $arrVid) {
             $arrThumbs[$pid] = array(
@@ -95,12 +99,14 @@ class CloudinaryPlugin extends Plugin
           $options = $this->config->get('plugins.cloudinary.options.video.listing');
           $options['resource_type'] = 'video';
           foreach($children as $child) {
-            $arrThumbs[$child->header()->public_id] = array(
-              "public_id" => $child->header()->public_id,
-              "title"     => $child->header()->title,
-              "url"       => $child->url(),
-              "url_img"   => cloudinary_url($child->header()->public_id, $options)
-            );
+            if (property_exists($child->header(), 'public_id')) {
+              $arrThumbs[$child->header()->public_id] = array(
+                "public_id" => $child->header()->public_id,
+                "title"     => $child->header()->title,
+                "url"       => $child->url(),
+                "url_img"   => cloudinary_url($child->header()->public_id, $options)
+              );
+            }
           }
           $this->config->set('plugins.cloudinary.list', $arrThumbs);
         }

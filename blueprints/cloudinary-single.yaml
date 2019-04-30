@@ -10,8 +10,7 @@ form:
       active: 1
       fields:
         content:
-          type: tab
           fields:
-             header.newTextField:
+            header.public_id:
               type: text
-              label: 'New Text Field'
+              label: 'Cloudinary public id'

@@ -1,12 +1,12 @@
 name: Cloudinary
 version: 1.0.0
 description: Cloudinary service integration for Grav.
-icon: plug
+icon: cloud
 author:
   name: Netzhexe.de
   email: ak@netzhexe.de
 homepage: https://github.com/skinofthesoul/grav-plugin-cloudinary
-keywords: grav, plugin, video management, image management, asset management,
+keywords: grav, plugin, video management, image management, asset management
 bugs: https://github.com/skinofthesoul/grav-plugin-cloudinary/issues
 docs: https://github.com/skinofthesoul/grav-plugin-cloudinary/blob/develop/README.md
 license: MIT
