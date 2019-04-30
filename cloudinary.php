@@ -11,6 +11,7 @@ use RocketTheme\Toolbox\Event\Event;
  * Class CloudinaryPlugin
  * @package Grav\Plugin
  */
+ require_once(__DIR__.'/vendor/autoload.php');
 
 class CloudinaryPlugin extends Plugin
 {
@@ -26,14 +27,13 @@ class CloudinaryPlugin extends Plugin
      */
     public static function getSubscribedEvents()
     {
-      require_once(__DIR__.'/vendor/autoload.php');
       //require_once(__DIR__.'/vendor/cloudinary_php/autoload.php');
 
       return [
-          'onTwigSiteVariables'      => ['onTwigSiteVariables', 0],
-          'onTwigTemplatePaths'      => ['onTwigTemplatePaths', 0],
-          //'onGetPageTemplates'       => ['onGetPageTemplates', 0]
-          //'onAdminTwigTemplatePaths' => ['onAdminTwigTemplatePaths', 0]
+        //'onPluginsInitialized' => ['onPluginsInitialized', 0],
+  			'onGetPageTemplates'   => ['onGetPageTemplates', 0],
+        'onTwigSiteVariables'      => ['onTwigSiteVariables', 0],
+        'onTwigTemplatePaths'      => ['onTwigTemplatePaths', 0]
       ];
     }
 
@@ -42,17 +42,15 @@ class CloudinaryPlugin extends Plugin
      */
     public function onPluginsInitialized()
     {
-      // If in an Admin page.
-      if ($this->isAdmin()) {
-          $this->enable([
-              'onGetPageTemplates' => ['onGetPageTemplates', 0]
-          ]);
-          return;
-          // If not in an Admin page.
-          $this->enable([
-              'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0]
-          ]);
-      }
+      // Nothing else is needed for admin so close it out
+  		if ( $this->isAdmin() ) {
+
+  			$this->enable([
+  				'onAdminSave' => ['onAdminSave', 0],
+  			]);
+
+  			return;
+  		}
     }
 
     /**
@@ -117,5 +115,18 @@ class CloudinaryPlugin extends Plugin
           $options = $this->config->get('plugins.cloudinary.options.video.single');
           $this->config->set('plugins.cloudinary.video', cl_video_tag($this->grav['page']->header()->public_id, $options));
         }
+    }
+    public function onAdminSave(Event $event)
+    {
+  		// get the ojbect being saved
+    	$obj = $event['object'];
+
+  		// check to see if the object is a `Page` with template `cloudinary-single`
+      if ($obj instanceof Page &&  $obj->template() == 'cloudinary-single' ) {
+
+  			// get the header
+  			$header = $obj->header();
+  			$obj->header($header);
+      }
     }
 }

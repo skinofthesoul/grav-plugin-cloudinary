@@ -1,4 +1,4 @@
-title: 'Page with Cloudinary file attached'
+title: Cloudinary
 '@extends':
     type: default
     context: blueprints://pages
@@ -6,11 +6,27 @@ title: 'Page with Cloudinary file attached'
 form:
   fields:
     tabs:
-      type: tabs
-      active: 1
       fields:
-        content:
+
+        cloudinary:
+          type: tab
+          title: Cloudinary
           fields:
             header.public_id:
               type: text
-              label: 'Cloudinary public id'
+              label: Public ID
+              validate:
+                type: required
+            header.type:
+              type: radio
+              label: Type
+              options:
+                video: Video
+                image: Image
+              validate:
+                options: required
+            header.options.width:
+              type: number
+              label: Width
+              validate:
+                step: 10

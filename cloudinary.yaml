@@ -2,11 +2,10 @@ enabled: true
 cloud_name: your_cloud_name
 key: your_key
 secret: your_secret
-options:
-    video:
-        listing:
-            format: jpg
-            width: 800
-        single:
-            controls: true
-            width: 800
+defaults_video:
+  options:
+    width: 900
+    controls: true
+defaults_image:
+  options:
+    width: 1280

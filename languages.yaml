@@ -4,6 +4,11 @@ en:
     CLOUD_NAME: 'Your cloud name'
     KEY: 'Your key'
     SECRET: 'Your secret'
+    REQUIRED: Required settings
+    DEFAULTS_VIDEO: Default options for single videos
+    DEFAULTS_IMAGE: Default options for single images
+    DEFAULTS_VIDEO_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/video_transformation_reference">list of all video options</a>
+    DEFAULTS_IMAGE_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">list of all image options</a>
 
 de:
   PLUGIN_CLOUDINARY:
@@ -11,3 +16,8 @@ de:
     CLOUD_NAME: 'Ihr Cloudname'
     KEY: 'Ihr Cloudinary-Schlüssel (key)'
     SECRET: 'Ihr Cloudinary-Geheimnis (secret)'
+    REQUIRED: Notwendige Einstellungen
+    DEFAULTS_VIDEO: Standardoptionen für einzelne Videos
+    DEFAULTS_VIDEO_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/video_transformation_reference"Liste aller Video-Optionen (englisch)</a>
+    DEFAULTS_IMAGE: Standardoptionen für einzelne Bilder
+    DEFAULTS_IMAGE_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">Liste aller Bild-Optionen (englisch)</a>

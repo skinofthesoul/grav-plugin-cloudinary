@@ -14,6 +14,11 @@ license: MIT
 form:
   validation: strict
   fields:
+    required:
+      type: section
+      title: PLUGIN_CLOUDINARY.REQUIRED
+      underline: false
+
     enabled:
       type: toggle
       label: PLUGIN_ADMIN.PLUGIN_STATUS
@@ -24,12 +29,33 @@ form:
         0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
+
     cloud_name:
       type: text
       label: PLUGIN_CLOUDINARY.CLOUD_NAME
+
     key:
       type: text
       label: PLUGIN_CLOUDINARY.KEY
+
     secret:
       type: text
       label: PLUGIN_CLOUDINARY.SECRET
+
+    defaults_video:
+      type: section
+      title: PLUGIN_CLOUDINARY.DEFAULTS_VIDEO
+      underline: false
+
+    defaults_video.options:
+      label: PLUGIN_CLOUDINARY.DEFAULTS_VIDEO_LINK
+      type: array
+
+    defaults_image:
+      type: section
+      title: PLUGIN_CLOUDINARY.DEFAULTS_IMAGE
+      underline: false
+
+    defaults_image.options:
+      label: PLUGIN_CLOUDINARY.DEFAULTS_IMAGE_LINK
+      type: array
