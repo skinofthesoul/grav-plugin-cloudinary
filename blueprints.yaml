@@ -42,6 +42,52 @@ form:
       type: text
       label: PLUGIN_CLOUDINARY.SECRET
 
+    defaults_gallery:
+      type: section
+      title: PLUGIN_CLOUDINARY.DEFAULTS_GALLERY
+      underline: false
+
+    defaults_gallery.options:
+      label: PLUGIN_CLOUDINARY.DEFAULTS_GALLERY
+      type: array
+      help: list of parameters for images
+
+    maxWidth:
+      type: number
+      label: PLUGIN_CLOUDINARY.MAX_WIDTH
+      #placeholder: 1320
+
+    minWidth:
+      type: number
+      label: PLUGIN_CLOUDINARY.MIN_WIDTH
+      #placeholder: 320
+
+    stepSize:
+      type: number
+      label: PLUGIN_CLOUDINARY.STEP_SIZE
+      placeholder: 200
+
+    defaultImageSize:
+      type: text
+      label: PLUGIN_CLOUDINARY.DEFAULT_SIZE
+      default: 100vw
+
+    size:
+      type: list
+      label: PLUGIN_CLOUDINARY.IMAGE_SIZES
+      btnLabel: PLUGIN_CLOUDINARY.ADD_SIZE
+
+      fields:
+        .screenSize:
+          type: text
+          label: PLUGIN_CLOUDINARY.SCREEN_SIZE
+          placeholder: (min-width:36em)
+
+        .imageSize:
+          type: text
+          label: PLUGIN_CLOUDINARY.IMAGE_SIZE
+          placeholder: 50vw
+
     defaults_video:
       type: section
       title: PLUGIN_CLOUDINARY.DEFAULTS_VIDEO

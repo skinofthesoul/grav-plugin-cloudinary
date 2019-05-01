@@ -2,10 +2,27 @@ enabled: true
 cloud_name: your_cloud_name
 key: your_key
 secret: your_secret
+defaults_gallery:
+  options:
+    fetch_format: auto
+    quality: 70
+maxWidth: 600
+minWidth: 200
+stepSize: 200
+defaultImageSize: 100vw
+size:
+  -
+    screenSize: (min-width:36em)
+    imageSize: 50vw
+  -
+    screenSize: (min-width:45em)
+    imageSize: 33vw
 defaults_video:
   options:
     width: 900
     controls: true
+    fetch_format: auto
 defaults_image:
   options:
     width: 1280
+    fetch_format: auto

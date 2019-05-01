@@ -5,10 +5,22 @@ en:
     KEY: 'Your key'
     SECRET: 'Your secret'
     REQUIRED: Required settings
+    DEFAULTS_GALLERY: Default options for galleries
+    MAX_WIDTH: Maximum width of images
+    MIN_WIDTH: Minimum width of images
+    STEP_SIZE: Step size of images to offer (in srcset)
+    DEFAULT_SIZE: Default image size (in srcset)
+    IMAGE_SIZES: Image sizes (in srcset)
+    ADD_SIZE: Add image size
+    SCREEN_SIZE: Screen size (in srcset)
+    IMAGE_SIZE: Image size (in srcset)
     DEFAULTS_VIDEO: Default options for single videos
     DEFAULTS_IMAGE: Default options for single images
     DEFAULTS_VIDEO_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/video_transformation_reference">list of all video options</a>
     DEFAULTS_IMAGE_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">list of all image options</a>
+    UPLOAD_BUTTON: Upload files
+    OPTIONS: Options
+    PUBLIC_ID: Public ID
 
 de:
   PLUGIN_CLOUDINARY:
@@ -17,7 +29,19 @@ de:
     KEY: 'Ihr Cloudinary-Schlüssel (key)'
     SECRET: 'Ihr Cloudinary-Geheimnis (secret)'
     REQUIRED: Notwendige Einstellungen
+    DEFAULTS_GALLERY: Standardoptionen für Galerien
+    MAX_WIDTH: Maximale Breite der Bilder
+    MIN_WIDTH: Minimale Breite der Bilder
+    STEP_SIZE: Abstand für generierte Bilder (srcset)
+    DEFAULT_SIZE: Standardgröße (srcset)
+    IMAGE_SIZES: Bildgrößen (srcset)
+    ADD_SIZE: Bildgröße hinzufügen
+    SCREEN_SIZE: Bildschirmgröße (srcset)
+    IMAGE_SIZE: Bildgröße (srcset)
     DEFAULTS_VIDEO: Standardoptionen für einzelne Videos
-    DEFAULTS_VIDEO_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/video_transformation_reference"Liste aller Video-Optionen (englisch)</a>
+    DEFAULTS_VIDEO_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/video_transformation_reference">Liste aller Video-Optionen (englisch)</a>
     DEFAULTS_IMAGE: Standardoptionen für einzelne Bilder
     DEFAULTS_IMAGE_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">Liste aller Bild-Optionen (englisch)</a>
+    UPLOAD_BUTTON: Dateien hochladen
+    OPTIONS: Optionen
+    PUBLIC_ID: Cloudinary ID (public id)

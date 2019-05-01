@@ -1,0 +1,17 @@
+title: Cloudinary
+'@extends':
+    type: default
+    context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      fields:
+
+        cloudinary:
+          type: tab
+          title: Cloudinary
+          fields:
+            header.options:
+              type: array
+              label: PLUGIN_CLOUDINARY.OPTIONS

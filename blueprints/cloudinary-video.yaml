@@ -1,0 +1,26 @@
+title: Cloudinary
+'@extends':
+    type: default
+    context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      fields:
+
+        cloudinary:
+          type: tab
+          title: Cloudinary
+          fields:
+            header.public_id:
+              type: text
+              label: PLUGIN_CLOUDINARY.PUBLIC_ID
+              validate:
+                type: required
+            header.options:
+              type: array
+              label: PLUGIN_CLOUDINARY.OPTIONS
+            upload:
+              type: display
+              label: PLUGIN_CLOUDINARY.UPLOAD_BUTTON
+              content: <button id="cl_upload_widget" class="cloudinary-button">PLUGIN_CLOUDINARY.UPLOAD_BUTTON</button>

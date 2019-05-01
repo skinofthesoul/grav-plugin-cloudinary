@@ -80,9 +80,10 @@ If you want to change the text that will appear in the alt tag of the thumbnails
 At the moment you need to upload and manage files directly in your Cloudinary account, and you can only output videos and lists of videos in the way outlined above. I would like to, roughly listed by priority:
 
 - [ ] add management options, especially uploading, via Grav Admin plugin
-- [ ] add format options fields to Admin
+- [x] add format options fields to Admin
 - [ ] add support for Cloudinary's adaptive streaming profiles
-- [ ] add support for images
+- [x] add support for images
+- [ ] add option for featherlight galleries for images
 - [ ] add support for Markdown shortcodes
 - [ ] add srcset options based on image classes
 - [ ] test whether the plugin clashes with responsive image plugins or the like
