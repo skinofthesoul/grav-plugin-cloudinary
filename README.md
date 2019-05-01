@@ -58,34 +58,39 @@ Note that if you use the admin plugin, a file with your configuration, and named
 
 Please also copy the templates from `user/plugins/cloudinary/templates` to the `templates` folder of your preferred theme, and adapt them as needed.
 
+## Usage
+
 To add a new page that displays a thumbnail gallery of either videos or images:
-1. Add a page with the `cloudinary-gallery.html.twig` template.
-2. Put `gallery_type: video` or `gallery_type: image` in that page's header, depending on what you want displayed on that page.
-3. Add child pages to the gallery page that use the `cloudinary-single.html.twig` template.
-4. Set the child pages' `header` entries like this:
+1. Add a page with the `cloudinary-gallery` template.
+2. Put `resource_type: video` or `resource_type: image` in that page's header, depending on what you want displayed on that page, along with the options you want (Grav Admin will give you some defaults to start with!).
+3. Add child pages to the gallery page that use either the `cloudinary-video` or the `cloudinary-image` template.
+4. Set the child pages' `header` entries like this (again, Grav Admin will give you some default options):
 
 ```yaml
 title: 'Title of your video/image'
 public_id: cloudinary_public_id
-type: video|image
+options:
+    width: 900
+    controls: true
 ```
 
 You can find and change an asset's public id in the media library of your Cloudinary account.
 
 ## Language settings
 
-If you want to change the text that will appear in the alt tag of the thumbnails on listing pages, copy the language contents of `user/plugins/cloudinary/languages.yaml` that you wish to change to `user/languages/en.yaml` or another language file respectively, and change that so your custom text will not get overridden when the plugin is updated.
+If you want to change the text that will appear in the alt tag of the thumbnails on listing pages, copy the language contents of `user/plugins/cloudinary/languages.yaml` that you wish to change (`ALT_PREFIX`) to `user/languages/en.yaml` or another language file respectively, and change that so your custom text will not get overridden when the plugin is updated.
 
 ## Future plans
-At the moment you need to upload and manage files directly in your Cloudinary account, and you can only output videos and lists of videos in the way outlined above. I would like to, roughly listed by priority:
+At the moment you need to upload and manage files directly in your Cloudinary account. I intend to, roughly listed by priority:
 
-- [ ] add management options, especially uploading, via Grav Admin plugin
 - [x] add format options fields to Admin
-- [ ] add support for Cloudinary's adaptive streaming profiles
+- [ ] add management options, especially uploading, via Grav Admin plugin
+- [ ] add support for Cloudinary's adaptive streaming profiles (videos)
 - [x] add support for images
+- [ ] add srcset options to galleries
+- [ ] add srcset options to single image pages
 - [ ] add option for featherlight galleries for images
 - [ ] add support for Markdown shortcodes
-- [ ] add srcset options based on image classes
 - [ ] test whether the plugin clashes with responsive image plugins or the like
 - [ ] add support for subfolders in Cloudinary
 
