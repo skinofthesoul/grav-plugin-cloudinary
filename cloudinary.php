@@ -35,6 +35,7 @@ class CloudinaryPlugin extends Plugin
         'onPageInitialized'      => ['onPageInitialized', 0],
   			'onGetPageTemplates'     => ['onGetPageTemplates', 0],
         'onTwigSiteVariables'    => ['onTwigSiteVariables', 0],
+        'onOutputGenerated'      => ['onOutputGenerated', 0],
         'onTwigTemplatePaths'    => ['onTwigTemplatePaths', 0]
       ];
     }
@@ -46,10 +47,25 @@ class CloudinaryPlugin extends Plugin
     {
   		if ( $this->isAdmin() ) {
         $this->grav["assets"]->addJs('https://widget.cloudinary.com/v2.0/global/all.js');
+  			$this->enable([
+  				'onAdminSave' => ['onAdminSave', 0]
+  			]);
+
+  			return;
+  		}
+    }
+
+    /**
+     * Add inline JS to Admin at the very bottom
+     */
+    public function onOutputGenerated()
+    {
+  		if ( $this->isAdmin() ) {
+        $raw = $this->grav->output;
         $code = '
-  <script type="text/javascript">
+<script type="text/javascript">
   var myWidget = cloudinary.createUploadWidget({
-    cloudName: '.$this->config->get('plugins.cloudinary.cloud_name').',
+    cloudName: "'.$this->config->get('plugins.cloudinary.cloud_name').'",
     uploadPreset: \'s4o4cqgw\'}, (error, result) => {
       if (!error && result && result.event === "success") {
         console.log(\'Done! Here is the image info: \', result.info);
@@ -60,12 +76,9 @@ class CloudinaryPlugin extends Plugin
   document.getElementById("cl_upload_widget").addEventListener("click", function(){
       myWidget.open();
     }, false);
-  </script>';
-        $this->grav["assets"]->addInlineJs($code);
-
-  			$this->enable([
-  				'onAdminSave' => ['onAdminSave', 0]
-  			]);
+</script>';
+        $this->grav->output = $raw.$code;
+        //$this->grav["assets"]->addInlineJs($code);
 
   			return;
   		}
@@ -82,14 +95,18 @@ class CloudinaryPlugin extends Plugin
         $types->scanTemplates($locator->findResource('plugin://' . $this->name . '/templates'));
     }
 
-    // found that in Blogroll plugin: https://github.com/Perlkonig/grav-plugin-blogroll/blob/master/blogroll.php
+    /**
+     * Add templates to twig paths.
+     */
     public function onTwigTemplatePaths()
     {
         //Load the built-in twig unless overridden
         $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
     }
 
-    // from Blogroll as well
+    /**
+     * Main part: Cloudinary output!
+     */
     public function onTwigSiteVariables()
     {
         \Cloudinary::config(array(
