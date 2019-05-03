@@ -21,6 +21,7 @@ en:
     UPLOAD_BUTTON: Upload files
     OPTIONS: Options
     PUBLIC_ID: Public ID
+    SRCSET: srcset settings
 
 de:
   PLUGIN_CLOUDINARY:
@@ -45,3 +46,4 @@ de:
     UPLOAD_BUTTON: Dateien hochladen
     OPTIONS: Optionen
     PUBLIC_ID: Cloudinary ID (public id)
+    SRCSET: scrcset-Einstellungen

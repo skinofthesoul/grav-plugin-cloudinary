@@ -1,3 +1,18 @@
+# v1.1.2
+##  03-05-2019
+
+1. [](#improved)
+    * code improvements
+    * included `vendor/` directory in git so it's actually installable via GPM
+
+# v1.1.1
+##  02-05-2019
+
+1. [](#improved)
+    * added credits to README
+    * fixed and bumped version numbers in `blueprints.yaml`
+    * fixed a templating error
+
 # v1.1.0
 ##  01-05-2019
 
