@@ -6,6 +6,7 @@ use Grav\Common\Grav;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Data\Data;
+use \Grav\Common\Twig\Twig;
 //use Grav\Common\AssetsGrav\Common\Assets;
 use RocketTheme\Toolbox\Event\Event;
 
@@ -13,7 +14,7 @@ use RocketTheme\Toolbox\Event\Event;
  * Class CloudinaryPlugin
  * @package Grav\Plugin
  */
- require_once(__DIR__.'/vendor/autoload.php');
+require_once(__DIR__.'/vendor/autoload.php');
 
 class CloudinaryPlugin extends Plugin
 {
@@ -29,8 +30,6 @@ class CloudinaryPlugin extends Plugin
      */
     public static function getSubscribedEvents()
     {
-      //require_once(__DIR__.'/vendor/cloudinary_php/autoload.php');
-
       return [
         'onPluginsInitialized'      => ['onPluginsInitialized', 0],
         'onPageInitialized'         => ['onPageInitialized', 0],
@@ -54,6 +53,7 @@ class CloudinaryPlugin extends Plugin
         //}
   			$this->enable([
   				//'onAdminSave' => ['onAdminSave', 0]
+          'onTwigInitialized' => ['onTwigInitialized', 0]
   			]);
 
   			return;
@@ -63,6 +63,21 @@ class CloudinaryPlugin extends Plugin
     public function onAdminTwigTemplatePaths($event)
     {
         //$event['paths'] = [__DIR__ . '/admin/themes/grav/templates'];
+    }
+
+    /**
+     * Add cl_video and cl_image tags to Twig
+     */
+    public function onTwigInitialized(Event $e)
+    {
+        $this->grav['twig']->twig()->addFunction(
+            new \Twig_SimpleFunction('cl_video', [$this, 'cl_video_test'])
+        );
+    }
+
+    public function cl_video_test()
+    {
+        return "just testing this";
     }
 
     /**
