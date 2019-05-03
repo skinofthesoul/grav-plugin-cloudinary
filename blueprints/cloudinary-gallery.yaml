@@ -15,3 +15,44 @@ form:
             header.options:
               type: array
               label: PLUGIN_CLOUDINARY.OPTIONS
+              config-default@: plugins.cloudinary.defaults_gallery.options
+
+            header.srcset:
+              type: section
+              title: PLUGIN_CLOUDINARY.SRCSET
+              underline: false
+
+            header.maxWidth:
+              type: number
+              label: PLUGIN_CLOUDINARY.MAX_WIDTH
+              config-default@: plugins.cloudinary.maxWidth
+
+            header.minWidth:
+              type: number
+              label: PLUGIN_CLOUDINARY.MIN_WIDTH
+              config-default@: plugins.cloudinary.minWidth
+
+            header.stepSize:
+              type: number
+              label: PLUGIN_CLOUDINARY.STEP_SIZE
+              config-default@: plugins.cloudinary.stepSize
+
+            header.defaultImageSize:
+              type: text
+              label: PLUGIN_CLOUDINARY.DEFAULT_SIZE
+              config-default@: plugins.cloudinary.defaultImageSize
+
+            header.size:
+              type: list
+              label: PLUGIN_CLOUDINARY.IMAGE_SIZES
+              btnLabel: PLUGIN_CLOUDINARY.ADD_SIZE
+              config-default@: plugins.cloudinary.size
+
+              fields:
+                .screenSize:
+                  type: text
+                  label: PLUGIN_CLOUDINARY.SCREEN_SIZE
+
+                .imageSize:
+                  type: text
+                  label: PLUGIN_CLOUDINARY.IMAGE_SIZE

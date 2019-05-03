@@ -20,3 +20,4 @@ form:
             header.options:
               type: array
               label: PLUGIN_CLOUDINARY.OPTIONS
+              config-default@: plugins.cloudinary.defaults_image.options
