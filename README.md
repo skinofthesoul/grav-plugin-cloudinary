@@ -1,216 +1,117 @@
-[![Build Status](https://travis-ci.org/cloudinary/cloudinary_php.svg)](https://travis-ci.org/cloudinary/cloudinary_php) [![license](https://img.shields.io/github/license/cloudinary/cloudinary_php.svg?maxAge=2592000)]() [![Packagist](https://img.shields.io/packagist/v/cloudinary/cloudinary_php.svg?maxAge=2592000)]() [![Packagist](https://img.shields.io/packagist/dt/cloudinary/cloudinary_php.svg?maxAge=2592000)]()
+# Cloudinary Plugin
 
-Cloudinary
-==========
+The **Cloudinary** Plugin is for [Grav CMS](http://github.com/getgrav/grav). [Cloudinary]/(https://cloudinary.com/) is an asset management and delivery service for images and videos, providing on the fly transformation and many other useful options. This plugin currently lets you build listing pages of videos with linked thumbnails and single pages that display the actual video. See below for future plans.
 
-Cloudinary is a cloud service that offers a solution to a web application's entire image management pipeline. 
+You need a Cloudinary account to use this plugin! There is a [free tier with generous limitations](https://cloudinary.com/pricing) available.
 
-Easily upload images to the cloud. Automatically perform smart image resizing, cropping and conversion without installing any complex software. Integrate Facebook or Twitter profile image extraction in a snap, in any dimension and style to match your website's graphics requirements. Images are seamlessly delivered through a fast CDN, and much much more. 
+### Credits
+Many, many thanks go to the folks at Cloudinary for offering such easily integratable APIs and widgets and things, but also to Team Grav for making Admin integration mostly a matter of properly-formatted yaml files in the right places. I would also like to shout out to quite a few other plugin writers whose plugins I used to learn from, and especially to the ones whose code I shamelessly copied in places: [Simon Cramer](https://github.com/simoncramer) (srcset-helper plugin) and [Aaron Dalton](https://github.com/Perlkonig) (blogroll plugin, among others). Check out their stuff, it's good!
 
-Cloudinary offers comprehensive APIs and administration capabilities and is easy to integrate with any web application, existing or new.
+## Installation
 
-Cloudinary provides URL and HTTP based APIs that can be easily integrated with any Web development framework. 
+Installing the Cloudinary plugin can be done in one of two ways. The GPM (Grav Package Manager) installation method enables you to quickly and easily install the plugin with a simple terminal command, while the manual method enables you to do so via a zip file.
 
-For PHP, Cloudinary provides an extension for simplifying the integration even further.
+### GPM Installation (Preferred)
 
-## Getting started guide
-![](http://res.cloudinary.com/cloudinary/image/upload/see_more_bullet.png)  **Take a look at our [Getting started guide for PHP](http://cloudinary.com/documentation/php_integration#getting_started_guide)**.
+The simplest way to install this plugin is via the [Grav Package Manager (GPM)](http://learn.getgrav.org/advanced/grav-gpm) through your system's terminal (also called the command line).  From the root of your Grav install type:
 
+    bin/gpm install cloudinary
 
-## CakePHP ##
-Dedicated CakePHP plugin is also available. You can browse the code, installation and usage information [at the `cloudinary_cake_php` repository](https://github.com/cloudinary/cloudinary_cake_php).
+This will install the Cloudinary plugin into your `/user/plugins` directory within Grav. Its files can be found under `/your/site/grav/user/plugins/cloudinary`.
 
-## Setup ######################################################################
+### Manual Installation
 
-You can install through composer with:
+To install this plugin, just download the zip version of this repository and unzip it under `/your/site/grav/user/plugins`. Then, rename the folder to `cloudinary`. You can find these files on [GitHub](https://github.com/skinofthesoul/grav-plugin-cloudinary) or via [GetGrav.org](http://getgrav.org/downloads/plugins#extras).
 
-`composer require cloudinary/cloudinary_php`
+You should now have all the plugin files under
 
-Or download cloudinary_php from [here](https://github.com/cloudinary/cloudinary_php/tarball/master)
+    /your/site/grav/user/plugins/cloudinary
 
-*Note: cloudinary_php require PHP 5.4*
+> NOTE: This plugin is a modular component for Grav which requires [Grav](http://github.com/getgrav/grav) and the [Error](https://github.com/getgrav/grav-plugin-error) and [Problems](https://github.com/getgrav/grav-plugin-problems) to operate.
 
-## Try it right away
+### Admin Plugin
 
-Sign up for a [free account](https://cloudinary.com/users/register/free) so you can try out image transformations and seamless image delivery through CDN.
+If you use the admin plugin, you can install directly through the admin plugin by browsing the `Plugins` tab and clicking on the `Add` button.
 
-*Note: Replace `demo` in all the following examples with your Cloudinary's `cloud name`.*  
+## Configuration
 
-Accessing an uploaded image with the `sample` public ID through a CDN:
+Before configuring this plugin, you should copy the `user/plugins/cloudinary/cloudinary.yaml` to `user/config/plugins/cloudinary.yaml` and only edit that copy.
 
-    http://res.cloudinary.com/demo/image/upload/sample.jpg
+Here is the default configuration and an explanation of available options:
 
-![Sample](https://cloudinary-a.akamaihd.net/demo/image/upload/w_0.4/sample.jpg "Sample")
+```yaml
+enabled: true
+cloud_name: your_cloud_name
+key: your_key
+secret: your_secret
+defaults_gallery:
+  options:
+    fetch_format: auto
+    quality: 70
+maxWidth: 600
+minWidth: 200
+stepSize: 200
+defaultImageSize: 100vw
+size:
+  -
+    screenSize: (min-width:36em)
+    imageSize: 50vw
+  -
+    screenSize: (min-width:45em)
+    imageSize: 33vw
+defaults_video:
+  options:
+    width: 900
+    controls: true
+    fetch_format: auto
+defaults_image:
+  options:
+    width: 1280
+    fetch_format: auto
+```
+These are just example settings. Your cloud name is required to find actual files to display, key and secret are not in use yet (will be needed for uploads). You can set default options your gallery pages as well as for single pages with videos or images, Cloudinary has an extensive list of available [options for videos](https://cloudinary.com/documentation/video_transformation_reference) as well as [options for images](https://cloudinary.com/documentation/image_transformation_reference). Just list them under the appropriate heading, with proper indentation (or use Grav Admin).
 
-Generating a 150x100 version of the `sample` image and downloading it through a CDN:
+Note that if you use the Admin plugin, a file with your configuration, and named cloudinary.yaml will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin. Saving a page with a cloudinary template will also automagically add these default options to that page.
 
-    http://res.cloudinary.com/demo/image/upload/w_150,h_100,c_fill/sample.jpg
+## Templates
 
-![Sample 150x100](https://cloudinary-a.akamaihd.net/demo/image/upload/w_150,h_100,c_fill/sample.jpg "Sample 150x100")
-
-Converting to a 150x100 PNG with rounded corners of 20 pixels: 
-
-    http://res.cloudinary.com/demo/image/upload/w_150,h_100,c_fill,r_20/sample.png
-
-![Sample 150x150 Rounded PNG](https://cloudinary-a.akamaihd.net/demo/image/upload/w_150,h_100,c_fill,r_20/sample.png "Sample 150x150 Rounded PNG")
-
-For plenty more transformation options, see our [image transformations documentation](http://cloudinary.com/documentation/image_transformations).
-
-Generating a 120x90 thumbnail based on automatic face detection of the Facebook profile picture of Bill Clinton:
- 
-    http://res.cloudinary.com/demo/image/facebook/c_thumb,g_face,h_90,w_120/billclinton.jpg
-    
-![Facebook 90x120](https://cloudinary-a.akamaihd.net/demo/image/facebook/c_thumb,g_face,h_90,w_120/billclinton.jpg "Facebook 90x200")
-
-For more details, see our documentation for embedding [Facebook](http://cloudinary.com/documentation/facebook_profile_pictures) and [Twitter](http://cloudinary.com/documentation/twitter_profile_pictures) profile pictures. 
-
-### Samples
-You can find our simple and ready-to-use samples projects, along with documentations in the [samples folder](https://github.com/cloudinary/cloudinary_php/tree/master/samples). Please consult with the [README file](https://github.com/cloudinary/cloudinary_php/blob/master/samples/README.md), for usage and explanations.
+If you need to make any changes in the templates, copy the ones you wish to change from `user/plugins/cloudinary/templates` to the `templates` folder of your preferred theme, and adapt them as needed.
 
 ## Usage
 
-### Configuration
+To add a new page that displays a thumbnail gallery of either videos or images that are linked to a page with the original file and optional text:
+1. Add a page with the `cloudinary-gallery` template.
+2. Put `resource_type: video` or `resource_type: image` in that page's header, depending on what you want displayed on that page, along with the options you want (Grav Admin will give you some defaults to start with!).
+3. Add child pages to the gallery page that use either the `cloudinary-video` or the `cloudinary-image` template.
+4. Set the child pages' `header` entries like this (again, Grav Admin will give you some default options):
 
-Each request for building a URL of a remote cloud resource must have the `cloud_name` parameter set. 
-Each request to our secure APIs (e.g., image uploads, eager sprite generation) must have the `api_key` and `api_secret` parameters set. See [API, URLs and access identifiers](http://cloudinary.com/documentation/api_and_access_identifiers) for more details.
+```yaml
+title: 'Title of your video/image'
+public_id: cloudinary_public_id
+options:
+    width: 900
+    controls: true
+```
 
-Setting the `cloud_name`, `api_key` and `api_secret` parameters can be done either directly in each call to a Cloudinary method, by calling the Cloudinary::config(), or by using the CLOUDINARY_URL environment variable.
+You can find and change an asset's public id in the media library of your Cloudinary account.
 
-### Embedding and transforming images
+## Language settings
 
-Any image uploaded to Cloudinary can be transformed and embedded using powerful view helper methods:
+If you want to change the text that will appear in the alt tag of the thumbnails on listing pages, copy the language contents of `user/plugins/cloudinary/languages.yaml` that you wish to change (`ALT_PREFIX`) to `user/languages/en.yaml` or another language file respectively, and change that so your custom text will not get overridden when the plugin is updated.
 
-The following example generates the url for accessing an uploaded `sample` image while transforming it to fill a 100x150 rectangle:
+## Future plans
+At the moment you need to upload and manage files directly in your Cloudinary account, and you need to add a child page for each single file. I intend to, roughly listed by priority:
 
-    cloudinary_url("sample.jpg", array("width" => 100, "height" => 150, "crop" => "fill"))
+- [x] add format options fields to Admin
+- [ ] add management options, especially uploading, via Grav Admin plugin
+- [ ] add support for Cloudinary's adaptive streaming profiles (videos)
+- [x] add support for images
+- [ ] add srcset options to galleries
+- [ ] add srcset options to single image pages
+- [ ] add support for image galleries with all images attached directly to a page
+- [ ] add option for featherlight galleries for images
+- [ ] add support for Markdown shortcodes
+- [ ] test whether the plugin clashes with responsive image plugins or the like
+- [ ] add support for subfolders in Cloudinary
 
-Another example, emedding a smaller version of an uploaded image while generating a 90x90 face detection based thumbnail: 
-
-    cloudinary_url("woman.jpg", array("width" => 90, "height" => 90, "crop" => "thumb", "gravity" => "face"))
-
-You can provide either a Facebook name or a numeric ID of a Facebook profile or a fan page.  
-             
-Embedding a Facebook profile to match your graphic design is very simple:
-
-    cloudinary_url("billclinton.jpg", array("width" => 90, "height" => 130, "type" => "facebook", "crop" => "fill", "gravity" => "north_west"))
-                           
-Same goes for Twitter:
-
-    cloudinary_url("billclinton.jpg", array("type" => "twitter_name"))
-
-![](http://res.cloudinary.com/cloudinary/image/upload/see_more_bullet.png) **See [our documentation](http://cloudinary.com/documentation/php_image_manipulation) for more information about displaying and transforming images in PHP**.                                         
-
-
-
-### Upload
-
-Assuming you have your Cloudinary configuration parameters defined (`cloud_name`, `api_key`, `api_secret`), uploading to Cloudinary is very simple.
-    
-The following example uploads a local JPG to the cloud: 
-    
-    \Cloudinary\Uploader::upload("my_picture.jpg")
-        
-The uploaded image is assigned a randomly generated public ID. The image is immediately available for download through a CDN:
-
-    cloudinary_url("abcfrmo8zul1mafopawefg.jpg")
-        
-    http://res.cloudinary.com/demo/image/upload/abcfrmo8zul1mafopawefg.jpg
-
-You can also specify your own public ID:    
-    
-    \Cloudinary\Uploader::upload("http://www.example.com/image.jpg", array("public_id" => 'sample_remote'))
-
-    cloudinary_url("sample_remote.jpg")
-
-    http://res.cloudinary.com/demo/image/upload/sample_remote.jpg
-
-
-![](http://res.cloudinary.com/cloudinary/image/upload/see_more_bullet.png) **See [our documentation](http://cloudinary.com/documentation/php_image_upload) for plenty more options of uploading to the cloud from your PHP code**.
-
-
-### cl\_image\_tag
-
-Returns an html image tag pointing to Cloudinary.
-
-Usage:
-
-    <?php echo cl_image_tag("sample", array("format"=>"png", "width"=>100, "height"=>100, "crop"=>"fill") ?>
-
-    # <img src='http://res.cloudinary.com/cloud_name/image/upload/c_fill,h_100,w_100/sample.png' height='100' width='100'/>
-
-
-
-### cl\_image\_upload\_tag
-
-Returns an html input field for direct image upload, to be used in conjunction with [cloudinary\_js package](https://github.com/cloudinary/cloudinary_js/). It integrates [jQuery-File-Upload widget](https://github.com/blueimp/jQuery-File-Upload) and provides all the necessary parameters for a direct upload.
-You may see a sample usage of this feature in the PhotoAlbum sample included in this project.
-
-Usage:
-
-    cl_image_upload_tag(post-upload-field-name, upload-options-array)
-
-Parameters:
-
- - `post-upload-field-name` - A name of a field in the form to be updated with the uploaded file data.
-      If no such field exists a new hidden field will be creates.   
-      The value format is `<image-path>#<public-id>`.   
-      If the `cl_image_upload_tag` is not within an html form, this argument is ignored.
-
- - `upload-options-array` - upload options same as in Upload section above, with:
-      - html - an associative array of html attributes for the upload field
-
-![](http://res.cloudinary.com/cloudinary/image/upload/see_more_bullet.png) **See [our documentation](http://cloudinary.com/documentation/php_image_upload#direct_uploading_from_the_browser) for plenty more options of uploading directly from the browser**.
-
-
-### cl\_form\_tag
-
-The following function returns an html form that can be used to upload the file directly to Cloudinary. The result is a redirect to the supplied callback_url.
-
-    cl_form_tag(callback, array(...))
-
-Optional parameters:
-
-    public_id - The name of the uploaded file in Cloudinary
-    form - html attributes to be added to the form tag
-    Any other parameter that can be passed to \Cloudinary\Uploader::upload
-
-## Development
-
-### Testing
-
-To run the PHPUnit test suite you must first set the environment variable containing your Cloudinary URL. This can be obtained via Cloudinary's Management Console.
-
-    export CLOUDINARY_URL=cloudinary://123456789012345:abcdeghijklmnopqrstuvwxyz12@n07t21i7
-
-Next you can run your the PHPUnit suite from the root of this library:
-
-   phpunit tests/* 
-  
-## Additional resources ##########################################################
-
-Additional resources are available at:
-
-* [Website](http://cloudinary.com)
-* [Knowledge Base](http://support.cloudinary.com/forums) 
-* [Documentation](http://cloudinary.com/documentation)
-* [Documentation for PHP integration](http://cloudinary.com/documentation/php_integration)
-* [PHP image upload documentation](http://cloudinary.com/documentation/php_image_upload)
-* [PHP image manipulation documentation](http://cloudinary.com/documentation/php_image_manipulation)
-* [Image transformations documentation](http://cloudinary.com/documentation/image_transformations)
-
-## Support
-
-You can [open an issue through GitHub](https://github.com/cloudinary/cloudinary_php/issues).
-
-Contact us [http://cloudinary.com/contact](http://cloudinary.com/contact)
-
-Stay tuned for updates, tips and tutorials: [Blog](http://cloudinary.com/blog), [Twitter](https://twitter.com/cloudinary), [Facebook](http://www.facebook.com/Cloudinary).
-
-## Join the Community ##########################################################
-
-Impact the product, hear updates, test drive new features and more! Join [here](https://www.facebook.com/groups/CloudinaryCommunity).
-
-## License #######################################################################
-
-Released under the MIT license. 
-
+Let me know if you have suggestions for improvement!
