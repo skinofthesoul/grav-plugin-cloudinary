@@ -28,7 +28,6 @@ return array(
     'Cloudinary\\HttpClient' => $vendorDir . '/cloudinary/cloudinary_php/src/HttpClient.php',
     'Cloudinary\\PreloadedFile' => $vendorDir . '/cloudinary/cloudinary_php/src/PreloadedFile.php',
     'Cloudinary\\Search' => $vendorDir . '/cloudinary/cloudinary_php/src/Search.php',
-    'Cloudinary\\SignatureVerifier' => $vendorDir . '/cloudinary/cloudinary_php/src/SignatureVerifier.php',
     'Cloudinary\\Uploader' => $vendorDir . '/cloudinary/cloudinary_php/src/Uploader.php',
     'Cloudinary\\Utils\\Singleton' => $vendorDir . '/cloudinary/cloudinary_php/src/Utils/Singleton.php',
 );

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb7f46669e98852843e8fa204e9833e52
+class ComposerStaticInit4e7ac3c53f48950b8a35c066bef8a5c1
 {
     public static $files = array (
         'c15243c55ab4c20eff78d1e24be20dac' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Helpers.php',
@@ -33,7 +33,6 @@ class ComposerStaticInitb7f46669e98852843e8fa204e9833e52
         'Cloudinary\\HttpClient' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/HttpClient.php',
         'Cloudinary\\PreloadedFile' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/PreloadedFile.php',
         'Cloudinary\\Search' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Search.php',
-        'Cloudinary\\SignatureVerifier' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/SignatureVerifier.php',
         'Cloudinary\\Uploader' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Uploader.php',
         'Cloudinary\\Utils\\Singleton' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Utils/Singleton.php',
     );
@@ -41,7 +40,7 @@ class ComposerStaticInitb7f46669e98852843e8fa204e9833e52
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInitb7f46669e98852843e8fa204e9833e52::$classMap;
+            $loader->classMap = ComposerStaticInit4e7ac3c53f48950b8a35c066bef8a5c1::$classMap;
 
         }, null, ClassLoader::class);
     }

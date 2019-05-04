@@ -1,5 +1,5 @@
 {
-  "require": {
-    "cloudinary/cloudinary_php": "dev-master"
-  }
+    "require": {
+        "cloudinary/cloudinary_php": "^1.13"
+    }
 }
