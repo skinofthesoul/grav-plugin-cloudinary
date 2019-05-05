@@ -105,9 +105,8 @@ At the moment you need to upload and manage files directly in your Cloudinary ac
 - [x] add format options fields to Admin
 - [ ] add management options, especially uploading, via Grav Admin plugin
 - [ ] add support for Cloudinary's adaptive streaming profiles (videos)
+- [ ] add support for Cloudinary's automatic responsive breakpoints
 - [x] add support for images
-- [ ] add srcset options to galleries
-- [ ] add srcset options to single image pages
 - [ ] add support for image galleries with all images attached directly to a page
 - [ ] add option for featherlight galleries for images
 - [ ] add support for Markdown shortcodes

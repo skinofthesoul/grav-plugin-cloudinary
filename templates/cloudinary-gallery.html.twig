@@ -3,8 +3,8 @@
 {% block content %}
     {{ page.content }}
     <div class="grid">
-    {% for v in config.plugins.cloudinary.list %}
-    <a href="{{ v.url }}"><img src="{{ v.url_img }}" alt="{{ t("PLUGIN_CLOUDINARY.ALT_PREFIX") }} {{ v.title }}">{{ v.title }}</a>
+    {% for v in page.children %}
+    <a href="{{ v.url }}"><img src="{{ cl_url('thumbnail', v.header.public_id, page.header.options) }}" alt="{{ t("PLUGIN_CLOUDINARY.ALT_PREFIX") }} {{ v.title }}">{{ v.title }}</a>
     {% endfor %}
     </div>
 {% endblock %}

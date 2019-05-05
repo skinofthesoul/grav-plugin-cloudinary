@@ -6,7 +6,8 @@ use Grav\Common\Grav;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Data\Data;
-use \Grav\Common\Twig\Twig;
+use Grav\Common\Twig\Twig;
+
 //use Grav\Common\AssetsGrav\Common\Assets;
 use RocketTheme\Toolbox\Event\Event;
 
@@ -51,14 +52,17 @@ class CloudinaryPlugin extends Plugin
         //if ($this->grav['page']->template() == 'cloudinary-image' || $this->grav['page']->template() == 'cloudinary-video') {
           $this->grav["assets"]->addJs('https://widget.cloudinary.com/v2.0/global/all.js');
         //}
-  			$this->enable([
-  				//'onAdminSave' => ['onAdminSave', 0]
-          'onTwigInitialized' => ['onTwigInitialized', 0]
-  			]);
-
   			return;
+        $this->enable([
+  				//'onAdminSave' => ['onAdminSave', 0]
+          //'onTwigInitialized' => ['onTwigInitialized', 0]
+  			]);
   		}
+      $this->enable([
+        'onTwigInitialized' => ['onTwigInitialized', 0]
+      ]);
     }
+
 
     public function onAdminTwigTemplatePaths($event)
     {
@@ -66,20 +70,63 @@ class CloudinaryPlugin extends Plugin
     }
 
     /**
-     * Add cl_video and cl_image tags to Twig
+     * Add cl_tags and srcset logic to Twig
      */
     public function onTwigInitialized(Event $e)
     {
         $this->grav['twig']->twig()->addFunction(
-            new \Twig_SimpleFunction('cl_video', [$this, 'cl_video_test'])
+            new \Twig_SimpleFunction('cl_tag', [$this, 'clTag'])
+        );
+        $this->grav['twig']->twig()->addFunction(
+            new \Twig_SimpleFunction('cl_url', [$this, 'clUrl'])
         );
     }
 
-    public function cl_video_test()
+    /**
+     * pass those functions from Helpers.php through to Twig --^
+     */
+    public static function clUrl($type, $public_id, $options = array())
     {
-        return "just testing this";
+        \Cloudinary::config(array(
+          "cloud_name" => $this->config->get('plugins.cloudinary.cloud_name')
+        ));
+        switch ($type) {
+          case 'video':
+            return cl_video_path($public_id, $options);
+
+          case 'image':
+            return cloudinary_url($public_id, $options);
+
+          case 'thumbnail':
+            return cl_video_thumbnail_path($public_id, $options);
+        }
     }
 
+    public static function clTag($type, $public_id, $options = array())
+    {
+        \Cloudinary::config(array(
+          "cloud_name" => $this->config->get('plugins.cloudinary.cloud_name')
+        ));
+        switch ($type) {
+          case 'video':
+            return cl_video_tag($public_id, $options);
+
+          case 'image':
+            return cl_image_tag($public_id, $options);
+
+          case 'thumbnail':
+            return cl_video_thumbnail_tag($public_id, $options);
+        }
+    }
+
+    /*public static function srcset($max, $min, $step)
+    {
+        $i = $min;
+        $srcset = "";
+        while ($i<= $max) {
+
+        }
+    }*/
     /**
      * Add inline JS to Admin somewhere AFTER the button it's looking for
      */
@@ -157,25 +204,6 @@ class CloudinaryPlugin extends Plugin
                  }
          }
      }
-    /**
-     * get Cloudinary file for admin
-     */
-    public static function getClFile()
-    {
-        return "bullshit";
-        /*\Cloudinary::config(array(
-          "cloud_name" => $this->config->get('plugins.cloudinary.cloud_name')
-        ));
-        if (property_exists($this->grav['page']->header(), 'public_id')) {
-          $options = array("format" => "jpg", "width" => 400, "resource_type" => $type);
-          $thumb = cl_image_tag($this->grav['page']->header()->public_id, $options);
-          //$this->config->set('plugins.cloudinary.thumbnail', $thumb);
-          return $thumb;
-        } else {
-          return "dumb";
-        }*/
-    }
-
     /**
      * Main part: Cloudinary output!
      */

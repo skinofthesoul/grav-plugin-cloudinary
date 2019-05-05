@@ -19,7 +19,9 @@
 {% block append %}
     {% if data.header.public_id is defined %}
         <div class="form-input-addon form-input-append">
-            yada
+            {% set thumb_options = {'width': '400'} %}
+            <img src="{{ cl_url('thumbnail', data.header.public_id, thumb_options) }}" alt="Vorschau">
+            {{ cl_tag('thumbnail', data.header.public_id, thumb_options) }}
         </div>
     {% endif %}
 {% endblock %}
@@ -28,6 +30,5 @@
 {% if field.prepend or field.append %}
     {% set field = field|merge({'wrapper_classes': 'form-input-addon-wrapper'}) %}
 {% endif %}
-{{ dump(data) }}
 {{ parent() }}
 {% endblock %}

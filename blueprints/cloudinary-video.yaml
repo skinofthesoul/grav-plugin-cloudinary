@@ -17,11 +17,6 @@ form:
               label: PLUGIN_CLOUDINARY.PUBLIC_ID
               validate:
                 type: required
-            cl_file:
-              label: Thumbnail image
-              type: display
-              #content: test
-              data-content@: '\Grav\Plugin\CloudinaryPlugin::getClFile'
             header.options:
               type: array
               label: PLUGIN_CLOUDINARY.OPTIONS
