@@ -1,3 +1,9 @@
+# v1.1.4
+##  06-05-2019
+
+1. [](#improved)
+    * some templating and code improvements, ready to be tested out in production
+
 # v1.1.3
 ##  04-05-2019
 

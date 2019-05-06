@@ -7,9 +7,8 @@ use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Data\Data;
 use Grav\Common\Twig\Twig;
-
-//use Grav\Common\AssetsGrav\Common\Assets;
 use RocketTheme\Toolbox\Event\Event;
+//use RocketTheme\Toolbox\File\File;
 
 /**
  * Class CloudinaryPlugin
@@ -33,12 +32,13 @@ class CloudinaryPlugin extends Plugin
     {
       return [
         'onPluginsInitialized'      => ['onPluginsInitialized', 0],
-        'onPageInitialized'         => ['onPageInitialized', 0],
+        //'onPageInitialized'         => ['onPageInitialized', 0],
   			'onGetPageTemplates'        => ['onGetPageTemplates', 0],
         'onTwigSiteVariables'       => ['onTwigSiteVariables', 0],
         'onOutputGenerated'         => ['onOutputGenerated', 0],
         //'onAdminTwigTemplatePaths'  => ['onAdminTwigTemplatePaths', 0],
-        'onTwigTemplatePaths'       => ['onTwigTemplatePaths', 0]
+        'onTwigTemplatePaths'       => ['onTwigTemplatePaths', 0],
+        'onTwigInitialized' => ['onTwigInitialized', 0]
       ];
     }
 
@@ -50,17 +50,18 @@ class CloudinaryPlugin extends Plugin
   		if ( $this->isAdmin() ) {
         // add cloudinary JS file for cloudinary single file pages
         //if ($this->grav['page']->template() == 'cloudinary-image' || $this->grav['page']->template() == 'cloudinary-video') {
-          $this->grav["assets"]->addJs('https://widget.cloudinary.com/v2.0/global/all.js');
+          //$this->grav["assets"]->addJs('https://widget.cloudinary.com/v2.0/global/all.js');
         //}
-  			return;
         $this->enable([
-  				//'onAdminSave' => ['onAdminSave', 0]
-          //'onTwigInitialized' => ['onTwigInitialized', 0]
+          'onAdminTaskExecute' => ['onAdminTaskExecute', 0],
+          'onAdminSave'        => ['onAdminSave', 0]
   			]);
   		}
-      $this->enable([
-        'onTwigInitialized' => ['onTwigInitialized', 0]
-      ]);
+      /*$this->enable([
+        'onTwigInitialized' => ['onTwigInitialized', 0],
+        'onFormProcessed' => ['onFormProcessed', 0],
+        'onAdminSave'     => ['onAdminSave', 0]
+      ]);*/
     }
 
 
@@ -72,7 +73,7 @@ class CloudinaryPlugin extends Plugin
     /**
      * Add cl_tags and srcset logic to Twig
      */
-    public function onTwigInitialized(Event $e)
+    public function onTwigInitialized(Event $event)
     {
         $this->grav['twig']->twig()->addFunction(
             new \Twig_SimpleFunction('cl_tag', [$this, 'clTag'])
@@ -182,28 +183,33 @@ class CloudinaryPlugin extends Plugin
     /**
      * Save file to Cloudinary.
      */
-     public function onFormProcessed(Event $event)
-     {
-         $form = $event['form'];
-         $action = $event['action'];
-         $params = $event['params'];
+    public function onAdminTaskExecute(Event $event)
+    {
+        \Cloudinary::config(array(
+          "cloud_name" => $this->config->get('plugins.cloudinary.cloud_name'),
+          "api_key" => $this->config->get('plugins.cloudinary.key'),
+          "api_secret" => $this->config->get('plugins.cloudinary.secret')
+        ));
+        dump($event); exit;
+        $form = $event['form'];
+        $action = $event['action'];
+        $params = $event['params'];
 
-         $post = isset($_POST['data']) ? $_POST['data'] : [];
-         $pass = $post['password'];
+        $post = isset($_POST['data']) ? $_POST['data'] : [];
+        $event->stopPropagation();
 
-         switch ($action) {
-             case 'uploadFile':
-                 if (sha1($pass) != 'myhash')  {
-                     $this->grav->fireEvent('onFormValidationError', new Event([
-                         'form'    => $event['form'],
-                         'message' => 'Bad password'
-                     ]));
+        switch ($action) {
+          case 'uploadFile':
+            return $result = \Cloudinary\Uploader::upload($post['file_upload'], "s4o4cqgw");
+            /*array("responsive_breakpoints" => array(
+                  "create_derived" => true,
+                  "bytes_step" => 20000,
+                  "min_width" => 200,
+                  "max_width" => 1000,
+                  "transformation" => array("crop" => "fill", "aspect_ratio" => "16:9", "gravity" => "auto" ))))*/
+        }
+    }
 
-                     $event->stopPropagation();
-                     return;
-                 }
-         }
-     }
     /**
      * Main part: Cloudinary output!
      */
@@ -264,39 +270,44 @@ class CloudinaryPlugin extends Plugin
     }
 
     /**
-     * Add widget button in Admin to cloudinary-single pages.
-     */
-    public function onPageInitialized()
-    {
-      if ( $this->isAdmin() ) {
-        /*if ($this->grav['page']->template() == 'cloudinary-video') {
-          $button = '<button id="upload_widget" class="cloudinary-button">'.PLUGIN_CLOUDINARY.UPLOAD_BUTTON.'</button>';
-          $content = $this->grav['page']->getContent();
-          $this->grav['page']->setContent($content.$button);
-        }*/
-      }
-    }
-
-    /**
      * Add default options to new cloudinary pages >> done with function callbacks!
      */
     public function onAdminSave(Event $event)
-    { // don't need this any more, just keeping it for reference for now
+    {
   		// get the object being saved
-    	/*$obj = $event['object'];
+    	$obj = $event['object'];
 
-      // check to see if the object is a `Page` with template `cloudinary-gallery`
-      if ($obj instanceof Page &&  $obj->template() == 'cloudinary-gallery') {
-        // get the header
-  			$header = $obj->header();
+      // check to see if the object is a `Page` with template `cloudinary-video` or `cloudinary-image`
+      if ($obj instanceof Page && ($obj->template() == 'cloudinary-video' || $obj->template() == 'cloudinary-image')) {
+        \Cloudinary::config(array(
+          "cloud_name" => $this->config->get('plugins.cloudinary.cloud_name'),
+          "api_key" => $this->config->get('plugins.cloudinary.key'),
+          "api_secret" => $this->config->get('plugins.cloudinary.secret')
+        ));
+        dump($obj); exit;
+        $header = $obj->header();
+        if (isset($header->file_upload)) { // only proceed if there's a new file
+          // get the header
+          $fup = $header->file_upload;
+          $path_parts = pathinfo($fup[array_key_first($fup)]['path']);
+          // turn filename into usable public id
+          $clean_name = preg_replace("/[^a-zA-Z0-9_\s-]/", "", $path_parts['filename']);
+          //Clean up multiple dashes or whitespaces
+          $clean_name = preg_replace("/[\s-]+/", " ", $clean_name);
+          //Convert whitespaces and underscore to dash
+          $clean_name = preg_replace("/[\s_]/", "-", $clean_name);
 
-        // check for options & add defaults if none exist
-        if (!isset($header->options)) {
-          //$header->options = $this->config->get('plugins.cloudinary.defaults_gallery.options');
+          $clean_name = strtolower($clean_name);
+          //dump($clean_name); exit;
+          $header->public_id = $clean_name;
+          // unset file_upload in header
+          // $header->
+
+          // stop upload to Grav destination
+
+          // set the header
+    			$obj->header($header);
         }
-
-        // set the header
-  			$obj->header($header);
-      }*/
+      }
     }
 }

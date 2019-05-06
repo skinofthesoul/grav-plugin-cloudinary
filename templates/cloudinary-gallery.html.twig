@@ -5,6 +5,9 @@
     <div class="grid">
     {% for v in page.children %}
     <a href="{{ v.url }}"><img src="{{ cl_url('thumbnail', v.header.public_id, page.header.options) }}" alt="{{ t("PLUGIN_CLOUDINARY.ALT_PREFIX") }} {{ v.title }}">{{ v.title }}</a>
+
+    {#{ cl_image(v.header.public_id, page.header.options) }#}
+
     {% endfor %}
     </div>
 {% endblock %}

@@ -22,6 +22,7 @@ en:
     OPTIONS: Options
     PUBLIC_ID: Public ID
     SRCSET: srcset settings
+    CL_UPLOAD: Upload file to Cloudinary
 
 de:
   PLUGIN_CLOUDINARY:
@@ -47,3 +48,4 @@ de:
     OPTIONS: Optionen
     PUBLIC_ID: Cloudinary ID (public id)
     SRCSET: scrcset-Einstellungen
+    CL_UPLOAD: Datei in Cloudinary hochladen
