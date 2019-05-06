@@ -17,11 +17,10 @@
 {% endblock %}
 
 {% block append %}
-    {% if data.header.public_id is defined %}
+    {% if data.header.public_id is not null %}
         <div class="form-input-addon form-input-append">
             {% set thumb_options = {'width': '400'} %}
             <img src="{{ cl_url('thumbnail', data.header.public_id, thumb_options) }}" alt="Vorschau">
-            {{ cl_tag('thumbnail', data.header.public_id, thumb_options) }}
         </div>
     {% endif %}
 {% endblock %}

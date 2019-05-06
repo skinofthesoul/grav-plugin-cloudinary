@@ -17,26 +17,18 @@ form:
               label: PLUGIN_CLOUDINARY.PUBLIC_ID
               validate:
                 type: required
-            header.options:
-              type: array
-              label: PLUGIN_CLOUDINARY.OPTIONS
-              config-default@: plugins.cloudinary.defaults_video.options
             file_upload:
               name: upload_video
-              type: file
-              label: Upload file to Cloudinary
+              type: cl-upload
+              label: PLUGIN_CLOUDINARY.CL_UPLOAD
               destination: 'self@'
               accept:
                 - video/*
               process:
                   - upload: false
                   - uploadFile:
-                  - message: 'Uploaded!'
-                  - reset: true
-            upload:
-              type: display
-              label: PLUGIN_CLOUDINARY.UPLOAD_BUTTON
-              content: <button id="cl_upload_widget" class="cloudinary-button">PLUGIN_CLOUDINARY.UPLOAD_BUTTON</button>
-            upload_widget:
-              type: display
-              content: -replace this with inline js-
+                  - propagation: stop
+            header.options:
+              type: array
+              label: PLUGIN_CLOUDINARY.OPTIONS
+              config-default@: plugins.cloudinary.defaults_video.options
