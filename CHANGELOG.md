@@ -1,3 +1,9 @@
+# v1.1.5
+##  08-05-2019
+
+1. [](#improved)
+    * better defaults, code improvements
+
 # v1.1.4
 ##  06-05-2019
 

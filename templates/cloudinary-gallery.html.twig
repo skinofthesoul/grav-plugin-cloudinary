@@ -4,10 +4,12 @@
     {{ page.content }}
     <div class="grid">
     {% for v in page.children %}
-    <a href="{{ v.url }}"><img src="{{ cl_url('thumbnail', v.header.public_id, page.header.options) }}" alt="{{ t("PLUGIN_CLOUDINARY.ALT_PREFIX") }} {{ v.title }}">{{ v.title }}</a>
-
-    {#{ cl_image(v.header.public_id, page.header.options) }#}
-
+    {% if v.header.poster.options.start_offset is defined %}
+      {% set options = page.header.options|merge({"start_offset": v.header.poster.options.start_offset}) %}
+      {% else %}
+      {% set options = page.header.options %}
+    {% endif %}
+    <a href="{{ v.url }}"><img src="{{ cl_url('thumbnail', v.header.public_id, options) }}" alt="{{ t("PLUGIN_CLOUDINARY.ALT_PREFIX") }} {{ v.title }}">{{ v.title }}</a>
     {% endfor %}
     </div>
 {% endblock %}

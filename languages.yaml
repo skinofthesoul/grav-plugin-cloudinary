@@ -17,9 +17,12 @@ en:
     DEFAULTS_VIDEO: Default options for single videos
     DEFAULTS_IMAGE: Default options for single images
     DEFAULTS_VIDEO_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/video_transformation_reference">list of all video options</a>
+    DEFAULTS_POSTER_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">list of all image options</a>
     DEFAULTS_IMAGE_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">list of all image options</a>
     UPLOAD_BUTTON: Upload files
     OPTIONS: Options
+    POSTER_OPTIONS: Options for the poster image
+    VIDEO_OPTIONS: Options for the video
     PUBLIC_ID: Public ID
     SRCSET: srcset settings
     CL_UPLOAD: Upload file to Cloudinary
@@ -43,9 +46,12 @@ de:
     DEFAULTS_VIDEO: Standardoptionen für einzelne Videos
     DEFAULTS_VIDEO_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/video_transformation_reference">Liste aller Video-Optionen (englisch)</a>
     DEFAULTS_IMAGE: Standardoptionen für einzelne Bilder
+    DEFAULTS_POSTER_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">Liste aller Bild-Optionen (englisch)</a>
     DEFAULTS_IMAGE_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">Liste aller Bild-Optionen (englisch)</a>
     UPLOAD_BUTTON: Dateien hochladen
     OPTIONS: Optionen
+    POSTER_OPTIONS: Optionen für das Startbild
+    VIDEO_OPTIONS: Optionen für das Video
     PUBLIC_ID: Cloudinary ID (public id)
     SRCSET: scrcset-Einstellungen
     CL_UPLOAD: Datei in Cloudinary hochladen

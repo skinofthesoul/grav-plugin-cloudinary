@@ -1,0 +1,42 @@
+{% extends "forms/field.html.twig" %}
+
+{% if field.file %}
+    {% set content = read_file(field.file) %}
+{% else %}
+    {% set content = field.content %}
+{% endif %}
+
+{% block input %}
+    <div class="form-display-wrapper {{ field.size }} {{ field.classes }}" {% if field.id is defined %}id="{{ field.id|e }}" {% endif %}>
+        {% if field.markdown %}
+            {{ content|t|markdown|raw }}
+        {% else %}
+            {{ content|t|raw }}
+        {% endif %}
+    </div>
+    {% do assets.addJs('https://media-library.cloudinary.com/global/all.js', 101) %}
+    {% do assets.addInlineJs("
+
+    const mloptions = {
+        cloud_name: 'netzhexe',
+        api_key: '12345',
+        username: 'ak@netzhexe.de',
+        timestamp: '1234567890',
+        signature: 'abcdefgh',
+        button_class: 'myBtn',
+        button_caption: 'Insert Images',
+        default_transformations: [
+          [{quality: 'auto'},{fetch_format: 'auto'}],
+          [{w_80,h_80,c_fill,g_auto,r_max},{f_auto,q_auto}]
+        ],
+        }
+
+        function insertHandler(data){
+          alert('oh well!');
+          return true;
+        }
+
+      window.ml = cloudinary.createMediaLibrary(mloptions, {insertHandler: insertHandler}, '#my_btn')
+
+    ", {'group': 'bottom'}) %}
+{% endblock %}

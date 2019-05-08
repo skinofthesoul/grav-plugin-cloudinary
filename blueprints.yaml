@@ -1,5 +1,5 @@
 name: Cloudinary
-version: 1.1.4
+version: 1.1.5
 description: Cloudinary service integration for Grav.
 icon: cloud
 author:
@@ -93,8 +93,13 @@ form:
       title: PLUGIN_CLOUDINARY.DEFAULTS_VIDEO
       underline: false
 
-    defaults_video.options:
+    defaults_video.video_options:
+      help: "Make sure these match your Cloudinary settings for videos larger than 40 MB!"
       label: PLUGIN_CLOUDINARY.DEFAULTS_VIDEO_LINK
+      type: array
+
+    defaults_video.poster_options:
+      label: PLUGIN_CLOUDINARY.DEFAULTS_POSTER_LINK
       type: array
 
     defaults_image:

@@ -2,7 +2,16 @@
 
 {% block content %}
   <h1>{{ page.title }}</h1>
-  {#{ config.plugins.cloudinary.video }#}
-  {{ cl_tag('video', page.header.public_id, page.header.options) }}
+  {% set poster_options = [] %}
+  {% if page.header.poster.options is defined %}
+    {% set poster_options = page.header.poster.options %}
+  {% endif %}
+  {% set video_options = [] %}
+  {% if page.header.video.options is defined %}
+    {% set video_options = page.header.video.options %}
+  {% endif %}
+  {% set poster = cl_url('video', page.header.public_id, poster_options) %}
+  {% set options = video_options|merge({ "poster": poster }) %}
+  {{ cl_tag('video', page.header.public_id, options) }}
   {{ page.content }}
 {% endblock %}
