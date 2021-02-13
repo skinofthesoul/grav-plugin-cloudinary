@@ -13,7 +13,7 @@ form:
           title: Cloudinary
           fields:
             header.public_id:
-              type: cl-file
+              type: cl-video
               label: PLUGIN_CLOUDINARY.PUBLIC_ID
               validate:
                 type: required
@@ -25,7 +25,3 @@ form:
               type: array
               label: PLUGIN_CLOUDINARY.POSTER_OPTIONS
               config-default@: plugins.cloudinary.defaults_video.poster_options
-            #library-widget:
-              #type: cl-display
-              #label: Cloudinary library
-              #content: teeeest

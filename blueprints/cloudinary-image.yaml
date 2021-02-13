@@ -13,7 +13,7 @@ form:
           title: Cloudinary
           fields:
             header.public_id:
-              type: text
+              type: cl-img
               label: PLUGIN_CLOUDINARY.PUBLIC_ID
               validate:
                 type: required
