@@ -1,3 +1,10 @@
+# v1.2.1
+##  14-02-2020
+
+1. [](#improved)
+    * upload widget now also works for images
+    * took out some plugin options that are not in use yet
+
 # v1.2
 ##  13-02-2020
 

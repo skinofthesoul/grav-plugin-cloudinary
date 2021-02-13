@@ -34,11 +34,11 @@
 {{ parent() }}
 
 {% do assets.addJs('https://widget.cloudinary.com/v2.0/global/all.js', 101) %}
-{% do assets.addInlineJs("
+{% set inline_js = "
 var myWidget = cloudinary.createUploadWidget({
   cloudName: 'netzhexe',
   multiple: false,
-  uploadPreset: 's4o4cqgw'}, (error, result) => {
+  uploadPreset: '" ~ grav.config.plugins.cloudinary.unsigned_preset ~ "'}, (error, result) => {
     if (!error && result && result.event === 'success') {
       // set field value to new id
       document.getElementById('cl_public_id').value = result.info.public_id;
@@ -55,5 +55,6 @@ document.getElementById('upload_widget').addEventListener('click', function(){
     myWidget.open();
 }, true);
 
-", {'group': 'bottom'}) %}
+" %}
+{% do assets.addInlineJs(inline_js, {'group': 'bottom'}) %}
 {% endblock %}

@@ -33,7 +33,6 @@
 {% endif %}
 {{ parent() }}
 
-{{ dump(grav.config.plugins.cloudinary.unsigned_preset) }}
 {% do assets.addJs('https://widget.cloudinary.com/v2.0/global/all.js', 101) %}
 {% set inline_js = "
 var myWidget = cloudinary.createUploadWidget({

@@ -24,6 +24,7 @@ en:
     OPTIONS: Options
     POSTER_OPTIONS: Options for the poster image
     VIDEO_OPTIONS: Options for the video
+    VIDEO_OPTIONS_HELP: Make sure these match your Cloudinary eager transformation settings for videos larger than 40 MB!
     PUBLIC_ID: Public ID
     SRCSET: srcset settings
     CL_UPLOAD: Upload file to Cloudinary
@@ -54,6 +55,7 @@ de:
     OPTIONS: Optionen
     POSTER_OPTIONS: Optionen für das Startbild
     VIDEO_OPTIONS: Optionen für das Video
+    VIDEO_OPTIONS_HELP: Diese Einstellungen müssen bei Videos > 40 MB mit den Cloudinary-Einstellungen (eager transformations) übereinstimmen!
     PUBLIC_ID: Cloudinary ID (public id)
     SRCSET: scrcset-Einstellungen
     CL_UPLOAD: Datei in Cloudinary hochladen

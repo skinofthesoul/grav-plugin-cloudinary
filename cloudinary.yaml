@@ -3,21 +3,6 @@ cloud_name: your_cloud_name
 key: your_key
 secret: your_secret
 unsigned_preset: unsigned_preset
-defaults_gallery:
-  options:
-    fetch_format: auto
-    quality: 75
-maxWidth: 600
-minWidth: 200
-stepSize: 200
-defaultImageSize: 100vw
-size:
-  -
-    screenSize: (min-width:36em)
-    imageSize: 50vw
-  -
-    screenSize: (min-width:45em)
-    imageSize: 33vw
 defaults_video:
   video_options:
     width: 900
