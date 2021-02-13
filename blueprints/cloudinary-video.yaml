@@ -25,7 +25,7 @@ form:
               type: array
               label: PLUGIN_CLOUDINARY.POSTER_OPTIONS
               config-default@: plugins.cloudinary.defaults_video.poster_options
-            library-widget:
-              type: cl-display
-              label: Cloudinary library
-              content: teeeest
+            #library-widget:
+              #type: cl-display
+              #label: Cloudinary library
+              #content: teeeest

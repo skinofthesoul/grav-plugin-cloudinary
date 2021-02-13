@@ -31,36 +31,10 @@ class CloudinaryPlugin extends Plugin
     public static function getSubscribedEvents()
     {
       return [
-        'onPluginsInitialized'      => ['onPluginsInitialized', 0],
   			'onGetPageTemplates'        => ['onGetPageTemplates', 0],
-        'onOutputGenerated'         => ['onOutputGenerated', 0],
         'onTwigTemplatePaths'       => ['onTwigTemplatePaths', 0],
         'onTwigInitialized'         => ['onTwigInitialized', 0]
       ];
-    }
-
-    /**
-     * Add Cloudinary JS to Admin
-     */
-    public function onPluginsInitialized()
-    {
-  		if ( $this->isAdmin() ) {
-        // add cloudinary JS file for cloudinary single file pages
-        if ($this->grav['page']->template() == 'cloudinary-image' || $this->grav['page']->template() == 'cloudinary-video') {
-          //$this->grav["assets"]->addJs('https://widget.cloudinary.com/v2.0/global/all.js');
-          //$this->grav["assets"]->addJs('https://media-library.cloudinary.com/global/all.js');
-        }
-        $this->enable([
-          'onAdminTaskExecute' => ['onAdminTaskExecute', 0],
-          'onAdminSave'        => ['onAdminSave', 0]
-  			]);
-  		}
-    }
-
-
-    public function onAdminTwigTemplatePaths($event) // (CURRENTLY UNUSED)
-    {
-        //$event['paths'] = [__DIR__ . '/admin/themes/grav/templates'];
     }
 
     /**
@@ -79,7 +53,7 @@ class CloudinaryPlugin extends Plugin
     /**
      * pass those functions from Helpers.php through to Twig --^
      */
-    public static function clUrl($type, $public_id, $options = array())
+    public function clUrl($type, $public_id, $options = array())
     {
       \Cloudinary::config(array(
         "cloud_name"  => $this->config->get('plugins.cloudinary.cloud_name'),
@@ -99,7 +73,7 @@ class CloudinaryPlugin extends Plugin
         }
     }
 
-    public static function clTag($type, $public_id, $options = array())
+    public function clTag($type, $public_id, $options = array())
     {
       \Cloudinary::config(array(
         "cloud_name"  => $this->config->get('plugins.cloudinary.cloud_name'),
@@ -127,38 +101,6 @@ class CloudinaryPlugin extends Plugin
 
         }
     }*/
-    /**
-     * Add inline JS to Admin somewhere AFTER the button it's looking for
-     */
-    public function onOutputGenerated()
-    {
-  		if ( $this->isAdmin() ) {
-        //if ($this->grav['page']->template() == 'cloudinary-image' || $this->grav['page']->template() == 'cloudinary-video') {
-          $raw = $this->grav->output;
-          // upload widget
-          /*$code = '
-<script type="text/javascript">
-  var myWidget = cloudinary.createUploadWidget({
-    cloudName: "'.$this->config->get('plugins.cloudinary.cloud_name').'",
-    uploadPreset: \'s4o4cqgw\'}, (error, result) => {
-      if (!error && result && result.event === "success") {
-        console.log(\'Done! Here is the image info: \', result.info);
-      }
-    }
-  )
-
-  document.getElementById("cl_upload_widget").addEventListener("click", function(){
-      myWidget.open();
-    }, false);
-</script>';
-          $raw_replaced = str_replace('-replace this with inline js-', $code, $raw);
-          $this->grav->output = $raw_replaced;*/
-        //}
-        //$this->grav["assets"]->addInlineJs($code);
-
-  			return;
-  		}
-    }
 
     /**
      * Add blueprint directory to page templates.
@@ -177,77 +119,5 @@ class CloudinaryPlugin extends Plugin
     public function onTwigTemplatePaths()
     {
         $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
-    }
-
-    /**
-     * Save file to Cloudinary (DOESN'T WORK)
-     */
-    public function onAdminTaskExecute(Event $event)
-    {
-      \Cloudinary::config(array(
-        "cloud_name"  => $this->config->get('plugins.cloudinary.cloud_name'),
-        "api_key"     => $this->config->get('plugins.cloudinary.key'),
-        "api_secret"  => $this->config->get('plugins.cloudinary.secret'),
-        "secure"      => true
-      ));
-        dump($event); exit;
-        $form = $event['form'];
-        $action = $event['action'];
-        $params = $event['params'];
-
-        $post = isset($_POST['data']) ? $_POST['data'] : [];
-        $event->stopPropagation();
-
-        switch ($action) {
-          case 'uploadFile':
-            return $result = \Cloudinary\Uploader::upload($post['file_upload'], "s4o4cqgw");
-            /*array("responsive_breakpoints" => array(
-                  "create_derived" => true,
-                  "bytes_step" => 20000,
-                  "min_width" => 200,
-                  "max_width" => 1000,
-                  "transformation" => array("crop" => "fill", "aspect_ratio" => "16:9", "gravity" => "auto" ))))*/
-        }
-    }
-
-    /**
-     * Save uploaded file to Cloudinary (DOESN'T WORK)
-     */
-    public function onAdminSave(Event $event)
-    {
-  		// get the object being saved
-    	$obj = $event['object'];
-
-      // check to see if the object is a `Page` with template `cloudinary-video` or `cloudinary-image`
-      if ($obj instanceof Page && ($obj->template() == 'cloudinary-video' || $obj->template() == 'cloudinary-image')) {
-        \Cloudinary::config(array(
-          "cloud_name"  => $this->config->get('plugins.cloudinary.cloud_name'),
-          "api_key"     => $this->config->get('plugins.cloudinary.key'),
-          "api_secret"  => $this->config->get('plugins.cloudinary.secret'),
-          "secure"      => true
-        ));
-        //dump($obj); exit;
-        $header = $obj->header();
-        if (isset($header->file_upload)) { // only proceed if there's a new file
-          // get the header
-          $fup = $header->file_upload;
-          $path_parts = pathinfo($fup[array_key_first($fup)]['path']);
-          // turn filename into usable public id
-          $clean_name = preg_replace("/[^a-zA-Z0-9_\s-]/", "", $path_parts['filename']);
-          //Clean up multiple dashes or whitespaces
-          $clean_name = preg_replace("/[\s-]+/", " ", $clean_name);
-          //Convert whitespaces and underscore to dash
-          $clean_name = preg_replace("/[\s_]/", "-", $clean_name);
-
-          $clean_name = strtolower($clean_name);
-          //dump($clean_name); exit;
-          $header->public_id = $clean_name;
-          // unset file_upload in header
-          // $header->
-
-          // set the header
-    			$obj->header($header);
-        }
-      }
     }
 }

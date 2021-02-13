@@ -10,6 +10,7 @@
 
 {% block input_attributes %}
     type="text"
+    id="cl_public_id"
     {% if field.size %}size="{{ field.size }}"{% endif %}
     {% if field.minlength is defined or field.validate.min is defined %}minlength="{{ field.minlength | default(field.validate.min) }}"{% endif %}
     {% if field.maxlength is defined or field.validate.max is defined %}maxlength="{{ field.maxlength | default(field.validate.max) }}"{% endif %}
@@ -20,7 +21,7 @@
     {% if data.header.public_id is not null %}
         <div class="form-input-addon form-input-append">
             {% set thumb_options = {'width': '400'} %}
-            <img src="{{ cl_url('thumbnail', data.header.public_id, thumb_options) }}" alt="Vorschau">
+            <img src="{{ cl_url('thumbnail', data.header.public_id, thumb_options) }}" alt="Vorschau" id="cl_img">
         </div>
     {% endif %}
     <button id="upload_widget" class="cloudinary-button">Upload files</button>
@@ -36,16 +37,23 @@
 {% do assets.addInlineJs("
 var myWidget = cloudinary.createUploadWidget({
   cloudName: 'netzhexe',
-  uploadPreset: 'my_preset'}, (error, result) => {
+  multiple: false,
+  uploadPreset: 's4o4cqgw'}, (error, result) => {
     if (!error && result && result.event === 'success') {
-      console.log('Done! Here is the image info: ', result.info);
+      // set field value to new id
+      document.getElementById('cl_public_id').value = result.info.public_id;
+      // replace image src
+      let old_img = document.getElementById('cl_img').src;
+      let path = old_img.substr(0,old_img.lastIndexOf('/')+1);
+      document.getElementById('cl_img').src = path + result.info.public_id + '.jpg';
     }
   }
 )
 
 document.getElementById('upload_widget').addEventListener('click', function(){
+    event.preventDefault();
     myWidget.open();
-  }, false);
+}, true);
 
 ", {'group': 'bottom'}) %}
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block content %}
     {{ page.content }}
     <div class="grid">
-    {% for v in page.children %}
+    {% for v in page.children.published %}
     {% if v.header.poster.options.start_offset is defined %}
       {% set options = page.header.options|merge({"start_offset": v.header.poster.options.start_offset}) %}
       {% else %}
