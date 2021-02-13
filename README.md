@@ -37,6 +37,12 @@ If you use the admin plugin, you can install directly through the admin plugin b
 
 Before configuring this plugin, you should copy the `user/plugins/cloudinary/cloudinary.yaml` to `user/config/plugins/cloudinary.yaml` and only edit that copy.
 
+You also need to:
+1. get a Cloudinary account
+2. configure an unsigned preset, *OR* upload your files directly in Cloudinary
+3. **if you're planning to show videos > 40 MB** you MUST configure eager transformations in the preset you are using to upload the files, and set eager async to enabled!
+4. make sure none of your files are larger than 100 MB
+
 Here is the default configuration and an explanation of available options:
 
 ```yaml
@@ -44,6 +50,7 @@ enabled: true
 cloud_name: your_cloud_name
 key: your_key
 secret: your_secret
+unsigned_preset: unsigned_preset
 defaults_gallery:
   options:
     fetch_format: auto
@@ -69,7 +76,7 @@ defaults_image:
     width: 1280
     fetch_format: auto
 ```
-These are just example settings. Your cloud name is required to find actual files to display, key and secret are not in use yet (will be needed for uploads). You can set default options your gallery pages as well as for single pages with videos or images, Cloudinary has an extensive list of available [options for videos](https://cloudinary.com/documentation/video_transformation_reference) as well as [options for images](https://cloudinary.com/documentation/image_transformation_reference). Just list them under the appropriate heading, with proper indentation (or use Grav Admin).
+These are just example settings. Your cloud name, key and secret are required to find actual files to display. If you wish to use the embedded upload widget, you need to define a preset for unsigned uploads in Cloudinary and enter that preset's name in the plugin configuration. You can set default options for your gallery pages as well as for single pages with videos or images, Cloudinary has an extensive list of available [options for videos](https://cloudinary.com/documentation/video_transformation_reference) as well as [options for images](https://cloudinary.com/documentation/image_transformation_reference). Just list them under the appropriate heading, with proper indentation (or use Grav Admin).
 
 Note that if you use the Admin plugin, a file with your configuration, and named cloudinary.yaml will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin. Saving a page with a cloudinary template will also automagically add these default options to that page.
 
@@ -95,18 +102,21 @@ options:
 
 You can find and change an asset's public id in the media library of your Cloudinary account.
 
+### Admin upload options
+
+If you're using the Admin plugin, you can either upload your files to Cloudinary separately and just copy and paste the public id of the file you want in the appropriate field of the Cloudinary tab when creating or editing a page with the `cloudinary-video` or `cloudinary-image` template. OR you can use the "Upload file" button and enjoy some javascript widget magic!
+
 ## Language settings
 
 If you want to change the text that will appear in the alt tag of the thumbnails on listing pages, copy the language contents of `user/plugins/cloudinary/languages.yaml` that you wish to change (`ALT_PREFIX`) to `user/languages/en.yaml` or another language file respectively, and change that so your custom text will not get overridden when the plugin is updated.
 
 ## Future plans
-At the moment you need to upload and manage files directly in your Cloudinary account, and you need to add a child page for each single file. I intend to, roughly listed by priority:
+At the moment you need to ~upload and~ manage files directly in your Cloudinary account, and you need to add a child page for each single file. If you wish to stay within the limits of the free plan, I suggest you regularly check your Cloudinary account and prune any files you do not need any more. I have some ideas for :
 
 - [x] add format options fields to Admin
-- [ ] add management options, especially uploading, via Grav Admin plugin
-- [ ] add support for Cloudinary's adaptive streaming profiles (videos)
-- [ ] add support for Cloudinary's automatic responsive breakpoints
+- [x] add management options, especially uploading, via Grav Admin plugin
 - [x] add support for images
+- [ ] write up a detailed howto for working with large video files
 - [ ] add support for image galleries with all images attached directly to a page
 - [ ] add option for featherlight galleries for images
 - [ ] add support for Markdown shortcodes

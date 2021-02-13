@@ -42,6 +42,10 @@ form:
       type: text
       label: PLUGIN_CLOUDINARY.SECRET
 
+    unsigned_preset:
+      type: text
+      label: PLUGIN_CLOUDINARY.UNSIGNED_PRESET
+
     defaults_gallery:
       type: section
       title: PLUGIN_CLOUDINARY.DEFAULTS_GALLERY

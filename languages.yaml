@@ -4,6 +4,7 @@ en:
     CLOUD_NAME: 'Your cloud name'
     KEY: 'Your key'
     SECRET: 'Your secret'
+    UNSIGNED_PRESET: 'Name of your unsigned preset'
     REQUIRED: Required settings
     DEFAULTS_GALLERY: Default options for galleries
     MAX_WIDTH: Maximum width of images
@@ -19,7 +20,7 @@ en:
     DEFAULTS_VIDEO_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/video_transformation_reference">list of all video options</a>
     DEFAULTS_POSTER_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">list of all image options</a>
     DEFAULTS_IMAGE_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">list of all image options</a>
-    UPLOAD_BUTTON: Upload files
+    UPLOAD_BUTTON: Upload file
     OPTIONS: Options
     POSTER_OPTIONS: Options for the poster image
     VIDEO_OPTIONS: Options for the video
@@ -33,6 +34,7 @@ de:
     CLOUD_NAME: 'Ihr Cloudname'
     KEY: 'Ihr Cloudinary-Schlüssel (key)'
     SECRET: 'Ihr Cloudinary-Geheimnis (secret)'
+    UNSIGNED_PRESET: 'Name Ihrer unsignierten Upload-Einstellung (unsigned preset)'
     REQUIRED: Notwendige Einstellungen
     DEFAULTS_GALLERY: Standardoptionen für Galerien
     MAX_WIDTH: Maximale Breite der Bilder
@@ -48,7 +50,7 @@ de:
     DEFAULTS_IMAGE: Standardoptionen für einzelne Bilder
     DEFAULTS_POSTER_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">Liste aller Bild-Optionen (englisch)</a>
     DEFAULTS_IMAGE_LINK: Cloudinary's <a href="https://cloudinary.com/documentation/image_transformation_reference">Liste aller Bild-Optionen (englisch)</a>
-    UPLOAD_BUTTON: Dateien hochladen
+    UPLOAD_BUTTON: Datei hochladen
     OPTIONS: Optionen
     POSTER_OPTIONS: Optionen für das Startbild
     VIDEO_OPTIONS: Optionen für das Video

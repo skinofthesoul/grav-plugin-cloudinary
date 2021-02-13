@@ -2,6 +2,7 @@ enabled: true
 cloud_name: your_cloud_name
 key: your_key
 secret: your_secret
+unsigned_preset: unsigned_preset
 defaults_gallery:
   options:
     fetch_format: auto

@@ -1,3 +1,12 @@
+# v1.2
+##  13-02-2020
+
+1. [](#new)
+    * upload file button for Grav Admin!
+
+2. [](#improved)
+    * code improvements, small language corrections
+
 # v1.1.5
 ##  08-05-2019
 
