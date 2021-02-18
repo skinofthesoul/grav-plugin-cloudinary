@@ -1,3 +1,9 @@
+# v1.2.2
+##  18-02-2020
+
+1. [](#bugfix)
+    * replaced a hardcoded cloudname with the appropriate plugin setting
+
 # v1.2.1
 ##  14-02-2020
 

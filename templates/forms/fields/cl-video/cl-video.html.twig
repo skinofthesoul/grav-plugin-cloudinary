@@ -36,7 +36,7 @@
 {% do assets.addJs('https://widget.cloudinary.com/v2.0/global/all.js', 101) %}
 {% set inline_js = "
 var myWidget = cloudinary.createUploadWidget({
-  cloudName: 'netzhexe',
+  cloudName: '" ~ grav.config.plugins.cloudinary.cloud_name ~ "',
   multiple: false,
   uploadPreset: '" ~ grav.config.plugins.cloudinary.unsigned_preset ~ "'}, (error, result) => {
     if (!error && result && result.event === 'success') {
