@@ -7,10 +7,12 @@ form:
   fields:
     tabs:
       fields:
-
+        content:
+          unset@: true
         cloudinary:
           type: tab
           title: Cloudinary
+          ordering@: -2
           fields:
             header.public_id:
               type: cl-video

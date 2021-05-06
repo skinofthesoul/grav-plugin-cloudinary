@@ -1,3 +1,9 @@
+# v1.2.3
+##  06-05-2021
+
+1. [](#improved)
+    * removed redundant content tabs
+
 # v1.2.2
 ##  18-02-2020
 
