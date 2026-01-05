@@ -1,5 +1,7 @@
 # Cloudinary Plugin
 
+**Please note: I have no plans to develop this plugin further, and may not have the time for maintenance should anything come up. Feel free to contact me if you’d like to take over ownership.**
+
 The **Cloudinary** Plugin is for [Grav CMS](http://github.com/getgrav/grav). [Cloudinary](https://cloudinary.com/) is an asset management and delivery service for images and videos, providing on the fly transformation and many other useful options. This plugin currently lets you build listing pages of videos with linked thumbnails and single pages that display the actual video. See below for future plans.
 
 You need a Cloudinary account to use this plugin! There is a [free tier with generous limitations](https://cloudinary.com/pricing) available.
